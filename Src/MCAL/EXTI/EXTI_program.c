@@ -95,7 +95,7 @@ void MEXTI_voidInit(MEXTI_CONFIG_t* Copy_tEXTIConfig ,void (*pCallBackFunction)(
 
 	/*Enable NVIC Mask for EXTI Line*/
 	if(Copy_tEXTIConfig->MEXTI_Line <5){
-		MNVIC_voidEnableIRQ(EXTI0_IRQn+MEXTIConfig->MEXTI_Line);
+		MNVIC_voidEnableIRQ(EXTI0_IRQn+Copy_tEXTIConfig->MEXTI_Line);
 	}
 	else if(Copy_tEXTIConfig->MEXTI_Line >= 5 && Copy_tEXTIConfig->MEXTI_Line <= 9){
 		MNVIC_voidEnableIRQ(EXTI9_5_IRQn);
@@ -136,7 +136,7 @@ void MEXTI_voidSetCallBack(MEXTI_INTERRUPT_LINE_t Copy_tInterruptLine, void (*pC
 }
 
 void MEXTI_voidClearPendingFlag(MEXTI_INTERRUPT_LINE_t Copy_tInterruptLine){
-	CLR_BIT(EXTI->PR,Copy_tInterruptLine);
+	SET_BIT(EXTI->PR,Copy_tInterruptLine);
 }
 
 u8 MEXTI_u8GetPendingFlag(MEXTI_INTERRUPT_LINE_t Copy_tInterruptLine)

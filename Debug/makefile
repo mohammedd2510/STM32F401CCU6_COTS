@@ -15,8 +15,10 @@ RM := rm -rf
 -include Src/MCAL/RCC/subdir.mk
 -include Src/MCAL/NVIC/subdir.mk
 -include Src/MCAL/GPIO/subdir.mk
+-include Src/MCAL/EXTI/subdir.mk
 -include Src/HAL/LEDMAT/subdir.mk
 -include Src/HAL/LED/subdir.mk
+-include Src/HAL/BUTTON/subdir.mk
 -include Src/subdir.mk
 -include objects.mk
 

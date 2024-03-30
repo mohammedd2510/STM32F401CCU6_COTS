@@ -16,19 +16,20 @@
  ******************************************************************************
  */
 #include"main.h"
-#include "HAL/LEDMAT/LEDMAT_interface.h"
-#include "HAL/LEDMAT/LEDMAT_config.h"
+
 // ----------------------------------------------------------------------------
-u8 ledarr[8]={0, 14, 10, 10, 4, 10, 17, 0};
+void EXTI0_Handler(void){
+	LED_voidToggle(&led_red1);
+}
 
 int main(void)
 {
-	HLEDMAT_voidInit( &ledmat_obj);
+	MEXTI_voidInit(&EXTI0_CONFIG,EXTI0_Handler);
+	LED_voidInit(&led_red1);
+	HButton_init(&btn1);
     /* Loop forever */
 	while(1){
-		HLED_voidDisplayString(&ledmat_obj,"Mohamed",500);
-		HLED_voidDisplayFrameWithDelay(&ledmat_obj, ledarr,500);
-		HLED_voidScrollFrameLeft(&ledmat_obj,500);
-		HLED_voidScrollFrameLeft(&ledmat_obj,500);
+		asm("NOP");
+
 	}
 }
