@@ -19,22 +19,23 @@
 
 // ----------------------------------------------------------------------------
 void IR_Handler(void){
-	if(IR_u32GetReceivedData() == IR_0_BUTTON)
+	if(IR_u32GetReceivedData() == IR_TV_REMOTE_RED_BUTTON)
 	{
 		RGB_voidSetColor(&RGB_Lcfg, RGB_RED);
 	}
-	else if(IR_u32GetReceivedData() == IR_1_BUTTON){
+	else if(IR_u32GetReceivedData() == IR_TV_REMOTE_GREEN_BUTTON){
 
 		RGB_voidSetColor(&RGB_Lcfg, RGB_GREEN);
 	}
-	else if(IR_u32GetReceivedData() == IR_2_BUTTON){
+	else if(IR_u32GetReceivedData() == IR_TV_REMOTE_BLUE_BUTTON){
 
 		RGB_voidSetColor(&RGB_Lcfg, RGB_BLUE);
 	}
-	else if(IR_u32GetReceivedData() == IR_3_BUTTON){
+	else if(IR_u32GetReceivedData() == IR_TV_REMOTE_YELLOW_BUTTON){
 
 		RGB_voidSetColor(&RGB_Lcfg, RGB_YELLOW);
 	}
+	/*
 	else if(IR_u32GetReceivedData() == IR_4_BUTTON){
 
 		RGB_voidSetColor(&RGB_Lcfg, RGB_WHITE);
@@ -56,7 +57,7 @@ void IR_Handler(void){
 	}
 	else if(IR_u32GetReceivedData() == IR_9_BUTTON){
 
-	}
+	}*/
 
 }
 

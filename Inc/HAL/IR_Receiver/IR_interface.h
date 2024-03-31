@@ -23,6 +23,7 @@
  *  GLOBAL CONSTANT MACROS
  *********************************************************************************************************************/
 
+/******************* MP3 Remote IR_CODES *******************/
 #define IR_CH_PERV_BUTTON 	    0xFFA25D
 #define IR_CH_BUTTON 			0xFF629D
 #define IR_CH_NEXT_BUTTON	    0xFFE21D
@@ -44,6 +45,48 @@
 #define IR_7_BUTTON				0xFF42BD
 #define IR_8_BUTTON				0xFF4AB5
 #define IR_9_BUTTON				0xFF52AD
+/*****************************************************/
+
+/******************* TV Remote IR_CODES *******************/
+#define IR_TV_REMOTE_UP_ARROW 		0x22d9708f
+#define IR_TV_REMOTE_DOWN_ARROW 	0x22d950af
+#define IR_TV_REMOTE_LEFT_ARROW 	0x22d958a7
+#define IR_TV_REMOTE_RIGHT_ARROW 	0x22d948b7
+#define IR_TV_REMOTE_OK          	0x22d9609f
+#define IR_TV_REMOTE_EXIT        	0x22d9c837
+#define IR_TV_REMOTE_MENU        	0x22d9f807
+#define IR_TV_REMOTE_POWER       	0x22d9d02f
+#define IR_TV_REMOTE_0           	0x22d930cf
+#define IR_TV_REMOTE_1           	0x22d9d827
+#define IR_TV_REMOTE_2           	0x22d9f00f
+#define IR_TV_REMOTE_3           	0x22d9c03f
+#define IR_TV_REMOTE_4           	0x22d99867
+#define IR_TV_REMOTE_5           	0x22d98877
+#define IR_TV_REMOTE_6           	0x22d9807f
+#define IR_TV_REMOTE_7           	0x22d9906f
+#define IR_TV_REMOTE_8           	0x22d9b847
+#define IR_TV_REMOTE_9           	0x22d9b04f
+#define IR_TV_REMOTE_RADIO       	0x22d918e7
+#define IR_TV_REMOTE_MUTE        	0x22d9e817
+#define IR_TV_REMOTE_GROUP       	0x22d97887
+#define IR_TV_REMOTE_INFO        	0x22d908f7
+#define IR_TV_REMOTE_EPG         	0x22d910ef
+#define IR_TV_REMOTE_LANG        	0x22d938c7
+#define IR_TV_REMOTE_CHANNEL_UP  	0x22d9a857
+#define IR_TV_REMOTE_CHANNEL_DOWN 	0x22d928d7
+#define IR_TV_REMOTE_VOLUME_UP    	0x22d948b7
+#define IR_TV_REMOTE_VOLUME_DOWN  	0x22d958a7
+#define IR_TV_REMOTE_RED_BUTTON   	0x22d900ff
+#define IR_TV_REMOTE_GREEN_BUTTON 	0x22d940bf
+#define IR_TV_REMOTE_BLUE_BUTTON  	0x22d920df
+#define IR_TV_REMOTE_YELLOW_BUTTON 	0x22d9a05f
+#define IR_TV_REMOTE_COLOR        	0x22d96897
+#define IR_TV_REMOTE_ZOOM         	0x22d9e01f
+#define IR_TV_REMOTE_PAUSE        	0x22d902fd
+#define IR_TV_REMOTE_P_N          	0x22d9827d
+
+/***********************************************/
+
 
 #define IR_RECEIVED_DATA_STATUS	 1
 #define IR_NOT_RECEIVED_DATA_STATUS 0
