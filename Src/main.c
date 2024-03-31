@@ -18,18 +18,23 @@
 #include"main.h"
 
 // ----------------------------------------------------------------------------
-void EXTI0_Handler(void){
+void IR_Handler(void){
+	if(IR_u32GetReceivedData() == IR_9_BUTTON)
 	LED_voidToggle(&led_red1);
+
 }
 
 int main(void)
 {
-	MEXTI_voidInit(&EXTI0_CONFIG,EXTI0_Handler);
 	LED_voidInit(&led_red1);
-	HButton_init(&btn1);
+	IR_voidInit(&IR_Config,NULL);
     /* Loop forever */
-	while(1){
-		asm("NOP");
-
+	while(1)
+	{
+		if(IR_u8GetReceivedStatus() == IR_RECEIVED_DATA_STATUS)
+		{
+			if(IR_u32GetReceivedData() == IR_0_BUTTON)
+				LED_voidToggle(&led_red1);
+		}
 	}
 }

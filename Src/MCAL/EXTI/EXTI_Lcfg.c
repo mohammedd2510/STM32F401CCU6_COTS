@@ -31,6 +31,13 @@ MEXTI_CONFIG_t EXTI0_CONFIG = {
 	. MEXTI_Port = MEXTI_PORTA,
 	.MEXTI_SenseSignal = MEXTI_RISING_EDGE
 };
+MEXTI_CONFIG_t EXTI1_CONFIG = {
+	.MEXTI_Mode = MEXTI_INTERRUPT_MODE,
+	. MEXTI_Line = MEXTI_EXTI1,
+	. MEXTI_Port = MEXTI_PORTB,
+	.MEXTI_SenseSignal = MEXTI_RISING_EDGE
+};
+
 /**********************************************************************************************************************
  *  LOCAL FUNCTION PROTOTYPES
  *********************************************************************************************************************/

@@ -23,11 +23,11 @@
 #define EXTI_REG_BASE_ADDRESS 0x40013C00
 #define EXTI    ((volatile EXTI_t*)(EXTI_REG_BASE_ADDRESS)) 
 
-#define SYSCFG_EXTICR0 (*((volatile u32*)(0x40013800)))
-#define SYSCFG_EXTICR1 (*((volatile u32*)(0x40013804)))
-#define SYSCFG_EXTICR2 (*((volatile u32*)(0x40013808)))
-#define SYSCFG_EXTICR3 (*((volatile u32*)(0x4001380C)))
-#define SYSCFG_EXTICR4 (*((volatile u32*)(0x40013810)))
+
+#define SYSCFG_EXTICR1 (*((volatile u32*)(0x40013808)))
+#define SYSCFG_EXTICR2 (*((volatile u32*)(0x4001380C)))
+#define SYSCFG_EXTICR3 (*((volatile u32*)(0x40013810)))
+#define SYSCFG_EXTICR4 (*((volatile u32*)(0x40013814)))
 /**********************************************************************************************************************
  *  GLOBAL FUNCTION MACROS
  *********************************************************************************************************************/

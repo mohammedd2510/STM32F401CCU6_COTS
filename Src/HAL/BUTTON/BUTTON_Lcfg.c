@@ -32,6 +32,12 @@ button_t btn1 = {
 	.button_connection = BUTTON_ACTIVE_HIGH
 };
 
+button_t btn2 = {
+	.button_pin = GPIO_PIN1,
+	.button_port = GPIO_PORTB,
+	.button_state = BUTTON_RELEASED,
+	.button_connection = BUTTON_ACTIVE_HIGH
+};
 /**********************************************************************************************************************
  *  LOCAL FUNCTION PROTOTYPES
  *********************************************************************************************************************/

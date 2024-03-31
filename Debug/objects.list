@@ -1,5 +1,7 @@
 "./Src/HAL/BUTTON/BUTTON_Lcfg.o"
 "./Src/HAL/BUTTON/BUTTON_program.o"
+"./Src/HAL/IR_Receiver/IR_Lcfg.o"
+"./Src/HAL/IR_Receiver/IR_program.o"
 "./Src/HAL/LED/LED_LCFG.o"
 "./Src/HAL/LED/LED_program.o"
 "./Src/HAL/LEDMAT/LEDMAT_LCFG.o"

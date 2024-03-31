@@ -14,8 +14,9 @@ typedef signed int s32;
 typedef float f32;
 typedef double f64;
 
-typedef void (*PtrFunction)(void);
+typedef void (*pCallBackNotification)(void);
 
+typedef void (*PtrFunction)(void);
 #define NULL 0
 
 #define ZERO_INIT 0

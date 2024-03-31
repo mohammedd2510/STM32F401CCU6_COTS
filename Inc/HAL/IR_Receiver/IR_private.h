@@ -2,26 +2,40 @@
 
  *  FILE DESCRIPTION
  *  -------------------------------------------------------------------------------------------------------------------
- *         File:  main.h
+ *         File:  IR_private.h
  *        Author: Mohamed Osama
- *		   Date:  Mar 23, 2024
+ *		   Date:  Mar 31, 2024
  *  Description:  <Write File DESCRIPTION here>     
  *  
  *********************************************************************************************************************/
-#ifndef MAIN_H_
-#define MAIN_H_
+#ifndef HAL_IR_RECEIVER_IR_PRIVATE_H_
+#define HAL_IR_RECEIVER_IR_PRIVATE_H_
 
 /**********************************************************************************************************************
  * INCLUDES
  *********************************************************************************************************************/
-#include "HAL/LED/LED_config.h"
-#include "HAL/IR_Receiver/IR_Lcfg.h"
-#include<stdio.h>
+#include "MCAL/RCC/RCC_interface.h"
+
 /**********************************************************************************************************************
  *  GLOBAL CONSTANT MACROS
  *********************************************************************************************************************/
+#define IR_START_SIGNAL_STARTED	0x00
+#define IR_START_SIGNAL_ENDED	0x01
+#define IR_GETTING_DATA 		0x02
 
+#define IR_END_OF_FRAME_DETECTED 0x05
 
+#define IR_START_SIGNAL_RANGE_LOW	13000
+#define IR_START_SIGNAL_RANGE_HIGH	15000
+
+#define IR_LOW_LEVEL_SIGNAL_RANGE_LOW	1000
+#define IR_LOW_LEVEL_SIGNAL_RANGE_HIGH	1500
+
+#define IR_HIGH_LEVEL_SIGNAL_RANGE_LOW	2000
+#define IR_HIGH_LEVEL_SIGNAL_RANGE_HIGH	2500
+
+#define IR_BIT_COUNT_END	-1
+#define IR_BIT_COUNT_INIT    31
 /**********************************************************************************************************************
  *  GLOBAL FUNCTION MACROS
  *********************************************************************************************************************/
@@ -38,13 +52,13 @@
 
  
 /**********************************************************************************************************************
- *  GLOBAL FUNCTION PROTOTYPES
+ *  LOCAL FUNCTION PROTOTYPES
  *********************************************************************************************************************/
-extern void initialise_monitor_handles(void);
+static void IR_EXTI_Handler(void);
  
-#endif /* MAIN_H_ */
+#endif /* HAL_IR_RECEIVER_IR_PRIVATE_H_ */
 
 /**********************************************************************************************************************
- *  END OF FILE: main.h
+ *  END OF FILE: IR_private.h
  *********************************************************************************************************************/
 

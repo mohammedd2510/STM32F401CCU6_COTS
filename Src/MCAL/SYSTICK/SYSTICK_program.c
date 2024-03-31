@@ -106,7 +106,16 @@ u32 MSysTick_u32GetElapsedTicks(void)
 	/* Return The Local Variable */
 	return Local_ElapsedTicks;
 }
-
+u32 MSysTick_u32GetElapsedTime_us(void)
+{
+	u32 Local_ElapsedTicks = 0;
+	u32 Local_ElapsedTime_us = 0;
+	/* Copy The SysTick Elapsed Ticks to a Local Variable */
+	Local_ElapsedTicks =  (SysTick->LOAD - SysTick->VAL);
+	Local_ElapsedTime_us = Local_ElapsedTicks /((u32)((SYSTICK_AHB_CLK/SYSTICK_CLOCK_SOURCE)/1000000.0));
+	/* Return The Local Variable */
+	return Local_ElapsedTime_us;
+}
 u32 MSysTick_u32GetRemainingTicks(void)
 {
   u32 Local_RemainingTicks = 0;

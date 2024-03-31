@@ -18,6 +18,7 @@ RM := rm -rf
 -include Src/MCAL/EXTI/subdir.mk
 -include Src/HAL/LEDMAT/subdir.mk
 -include Src/HAL/LED/subdir.mk
+-include Src/HAL/IR_Receiver/subdir.mk
 -include Src/HAL/BUTTON/subdir.mk
 -include Src/subdir.mk
 -include objects.mk

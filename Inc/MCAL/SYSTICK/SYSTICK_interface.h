@@ -34,6 +34,8 @@ void MSysTick_voidSetIntervalPeriodic(u32 Copy_u32Ticks,PtrFunction CallBack_Ptr
 
 u32 MSysTick_u32GetElapsedTicks(void);
 
+u32 MSysTick_u32GetElapsedTime_us(void);
+
 u32 MSysTick_u32GetRemainingTicks(void);
 
 void MSystick_Delay_ms(u32 time_ms);

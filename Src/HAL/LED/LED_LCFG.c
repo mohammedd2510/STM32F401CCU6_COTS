@@ -11,8 +11,8 @@ Led_t led_red1 =
 };
 Led_t led_yellow1 =
 {
-    .led_port = GPIO_PORTA,
-    .led_pin  = GPIO_PIN1,
+    .led_port = GPIO_PORTB,
+    .led_pin  = GPIO_PIN0,
     .led_logic = GPIO_LOW
 };
 Led_t led_red2 =
