@@ -19,22 +19,54 @@
 
 // ----------------------------------------------------------------------------
 void IR_Handler(void){
-	if(IR_u32GetReceivedData() == IR_9_BUTTON)
-	LED_voidToggle(&led_red1);
+	if(IR_u32GetReceivedData() == IR_0_BUTTON)
+	{
+		RGB_voidSetColor(&RGB_Lcfg, RGB_RED);
+	}
+	else if(IR_u32GetReceivedData() == IR_1_BUTTON){
+
+		RGB_voidSetColor(&RGB_Lcfg, RGB_GREEN);
+	}
+	else if(IR_u32GetReceivedData() == IR_2_BUTTON){
+
+		RGB_voidSetColor(&RGB_Lcfg, RGB_BLUE);
+	}
+	else if(IR_u32GetReceivedData() == IR_3_BUTTON){
+
+		RGB_voidSetColor(&RGB_Lcfg, RGB_YELLOW);
+	}
+	else if(IR_u32GetReceivedData() == IR_4_BUTTON){
+
+		RGB_voidSetColor(&RGB_Lcfg, RGB_WHITE);
+	}
+	else if(IR_u32GetReceivedData() == IR_5_BUTTON){
+
+		RGB_voidSetColor(&RGB_Lcfg, RGB_PURPLE);
+	}
+	else if(IR_u32GetReceivedData() == IR_6_BUTTON){
+
+		RGB_voidSetColor(&RGB_Lcfg, RGB_CYAN);
+	}
+	else if(IR_u32GetReceivedData() == IR_7_BUTTON){
+
+		RGB_voidSetColor(&RGB_Lcfg, RGB_BLACK);
+	}
+	else if(IR_u32GetReceivedData() == IR_8_BUTTON){
+
+	}
+	else if(IR_u32GetReceivedData() == IR_9_BUTTON){
+
+	}
 
 }
 
 int main(void)
 {
-	LED_voidInit(&led_red1);
-	IR_voidInit(&IR_Config,NULL);
+	RGB_voidInit(&RGB_Lcfg);
+	IR_voidInit(&IR_Config,IR_Handler);
     /* Loop forever */
 	while(1)
 	{
-		if(IR_u8GetReceivedStatus() == IR_RECEIVED_DATA_STATUS)
-		{
-			if(IR_u32GetReceivedData() == IR_0_BUTTON)
-				LED_voidToggle(&led_red1);
-		}
+
 	}
 }

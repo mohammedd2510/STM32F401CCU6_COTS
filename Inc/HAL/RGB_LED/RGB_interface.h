@@ -2,24 +2,32 @@
 
  *  FILE DESCRIPTION
  *  -------------------------------------------------------------------------------------------------------------------
- *         File:  main.h
+ *         File:  RGB_interface.h
  *        Author: Mohamed Osama
- *		   Date:  Mar 23, 2024
+ *		   Date:  Mar 31, 2024
  *  Description:  <Write File DESCRIPTION here>     
  *  
  *********************************************************************************************************************/
-#ifndef MAIN_H_
-#define MAIN_H_
+#ifndef HAL_RGB_LED_RGB_INTERFACE_H_
+#define HAL_RGB_LED_RGB_INTERFACE_H_
 
 /**********************************************************************************************************************
  * INCLUDES
  *********************************************************************************************************************/
-#include "HAL/LED/LED_config.h"
-#include "HAL/IR_Receiver/IR_Lcfg.h"
-#include "HAL/RGB_LED/RGB_Lcfg.h"
+#include "MCAL/GPIO/GPIO_interface.h"
+#include "MCAL/RCC/RCC_interface.h"
+
 /**********************************************************************************************************************
  *  GLOBAL CONSTANT MACROS
  *********************************************************************************************************************/
+#define RGB_BLACK    0b000
+#define RGB_RED      0b100
+#define RGB_GREEN    0b010
+#define RGB_BLUE     0b001
+#define RGB_YELLOW   0b110
+#define RGB_WHITE    0b111
+#define RGB_PURPLE   0b101
+#define RGB_CYAN     0b011
 
 
 /**********************************************************************************************************************
@@ -30,7 +38,15 @@
 /**********************************************************************************************************************
  *  GLOBAL DATA TYPES AND STRUCTURES
  *********************************************************************************************************************/
-
+typedef struct
+{
+	pin_index_t  RGB_Red_Pin;
+	port_index_t RGB_Red_Port;
+	pin_index_t  RGB_Green_Pin;
+	port_index_t RGB_Green_Port;
+	pin_index_t  RGB_Blue_Pin;
+	port_index_t RGB_Blue_Port;
+}RGB_Config_t;
 
 /**********************************************************************************************************************
  *  GLOBAL DATA PROTOTYPES
@@ -40,11 +56,12 @@
 /**********************************************************************************************************************
  *  GLOBAL FUNCTION PROTOTYPES
  *********************************************************************************************************************/
-extern void initialise_monitor_handles(void);
+void RGB_voidInit(const RGB_Config_t* REF_RGBObj);
+void RGB_voidSetColor(const RGB_Config_t* REF_RGBObj, u8 RGB_color);
  
-#endif /* MAIN_H_ */
+#endif /* HAL_RGB_LED_RGB_INTERFACE_H_ */
 
 /**********************************************************************************************************************
- *  END OF FILE: main.h
+ *  END OF FILE: RGB_interface.h
  *********************************************************************************************************************/
 

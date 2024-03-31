@@ -1,0 +1,3 @@
+../Src/HAL/RGB_LED/RGB_program.c:37:13:RGB_init_led	16	static
+../Src/HAL/RGB_LED/RGB_program.c:61:6:RGB_voidInit	16	static
+../Src/HAL/RGB_LED/RGB_program.c:67:6:RGB_voidSetColor	16	static
