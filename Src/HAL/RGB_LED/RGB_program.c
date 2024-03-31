@@ -58,19 +58,99 @@ static void RGB_init_led(port_index_t RGB_LedPort, pin_index_t RGB_LedPin)
  *  GLOBAL FUNCTIONS
  *********************************************************************************************************************/
 
-void RGB_voidInit(const RGB_Config_t* REF_RGBObj)
+void RGB_voidInit(RGB_Config_t* REF_RGBObj)
 {
 	RGB_init_led(REF_RGBObj->RGB_Red_Port, REF_RGBObj->RGB_Red_Pin);
 	RGB_init_led(REF_RGBObj->RGB_Green_Port, REF_RGBObj->RGB_Green_Pin);
 	RGB_init_led(REF_RGBObj->RGB_Blue_Port, REF_RGBObj->RGB_Blue_Pin);
 }
-void RGB_voidSetColor(const RGB_Config_t* REF_RGBObj, u8 RGB_color)
+void RGB_voidSetColor(RGB_Config_t* REF_RGBObj, u8 RGB_color)
 {
 	GPIO_voidSetPinValue(REF_RGBObj->RGB_Red_Port, REF_RGBObj->RGB_Red_Pin, !(RGB_color>>2 & 0x01));
+	REF_RGBObj->RGB_Red_State = !(RGB_color>>2 & 0x01);
 	GPIO_voidSetPinValue(REF_RGBObj->RGB_Green_Port, REF_RGBObj->RGB_Green_Pin, !(RGB_color>>1 & 0x01));
+	REF_RGBObj->RGB_Green_State = !(RGB_color>>1 & 0x01);
 	GPIO_voidSetPinValue(REF_RGBObj->RGB_Blue_Port, REF_RGBObj->RGB_Blue_Pin, !(RGB_color>>0 & 0x01));
+	REF_RGBObj->RGB_Blue_State = !(RGB_color>>0 & 0x01);
 }
-
+void RGB_voidLedOn(RGB_Config_t* REF_RGBObj , RGB_Leds_t RGP_Led)
+{
+	switch(RGP_Led)
+	{
+	case RGB_RED_LED:
+		GPIO_voidSetPinValue(REF_RGBObj->RGB_Red_Port, REF_RGBObj->RGB_Red_Pin, RGB_LED_ON);
+		REF_RGBObj->RGB_Red_State = RGB_LED_ON;
+		break;
+	case RGB_GREEN_LED:
+		GPIO_voidSetPinValue(REF_RGBObj->RGB_Green_Port, REF_RGBObj->RGB_Green_Pin, RGB_LED_ON);
+		REF_RGBObj->RGB_Green_State = RGB_LED_ON;
+		break;
+	case RGB_BLUE_LED:
+		GPIO_voidSetPinValue(REF_RGBObj->RGB_Blue_Port, REF_RGBObj->RGB_Blue_Pin, RGB_LED_ON);
+		REF_RGBObj->RGB_Blue_State = RGB_LED_ON;
+		break;
+	}
+}
+void RGB_voidLedOff( RGB_Config_t* REF_RGBObj , RGB_Leds_t RGP_Led)
+{
+	switch(RGP_Led)
+		{
+		case RGB_RED_LED:
+			GPIO_voidSetPinValue(REF_RGBObj->RGB_Red_Port, REF_RGBObj->RGB_Red_Pin, RGB_LED_OFF);
+			REF_RGBObj->RGB_Red_State = RGB_LED_OFF;
+			break;
+		case RGB_GREEN_LED:
+			GPIO_voidSetPinValue(REF_RGBObj->RGB_Green_Port, REF_RGBObj->RGB_Green_Pin, RGB_LED_OFF);
+			REF_RGBObj->RGB_Green_State = RGB_LED_OFF;
+			break;
+		case RGB_BLUE_LED:
+			GPIO_voidSetPinValue(REF_RGBObj->RGB_Blue_Port, REF_RGBObj->RGB_Blue_Pin, RGB_LED_OFF);
+			REF_RGBObj->RGB_Blue_State = RGB_LED_OFF;
+			break;
+		}
+}
+void RGB_voidLedToggle(RGB_Config_t* REF_RGBObj , RGB_Leds_t RGP_Led)
+{
+	switch(RGP_Led)
+			{
+			case RGB_RED_LED:
+				if(REF_RGBObj->RGB_Red_State == RGB_LED_ON)
+				{
+					GPIO_voidSetPinValue(REF_RGBObj->RGB_Red_Port, REF_RGBObj->RGB_Red_Pin, RGB_LED_OFF);
+					REF_RGBObj->RGB_Red_State = RGB_LED_OFF;
+				}
+				else if (REF_RGBObj->RGB_Red_State == RGB_LED_OFF)
+				{
+					GPIO_voidSetPinValue(REF_RGBObj->RGB_Red_Port, REF_RGBObj->RGB_Red_Pin, RGB_LED_ON);
+					REF_RGBObj->RGB_Red_State = RGB_LED_ON;
+				}
+				break;
+			case RGB_GREEN_LED:
+				if(REF_RGBObj->RGB_Green_State == RGB_LED_ON)
+				{
+					GPIO_voidSetPinValue(REF_RGBObj->RGB_Green_Port, REF_RGBObj->RGB_Green_Pin, RGB_LED_OFF);
+					REF_RGBObj->RGB_Green_State = RGB_LED_OFF;
+				}
+				else if (REF_RGBObj->RGB_Green_State == RGB_LED_OFF)
+				{
+					GPIO_voidSetPinValue(REF_RGBObj->RGB_Green_Port, REF_RGBObj->RGB_Green_Pin, RGB_LED_ON);
+					REF_RGBObj->RGB_Green_State = RGB_LED_ON;
+				}
+				break;
+			case RGB_BLUE_LED:
+				if(REF_RGBObj->RGB_Blue_State == RGB_LED_ON)
+				{
+					GPIO_voidSetPinValue(REF_RGBObj->RGB_Blue_Port, REF_RGBObj->RGB_Blue_Pin, RGB_LED_OFF);
+					REF_RGBObj->RGB_Blue_State = RGB_LED_OFF;
+				}
+				else if (REF_RGBObj->RGB_Blue_State == RGB_LED_OFF)
+				{
+					GPIO_voidSetPinValue(REF_RGBObj->RGB_Blue_Port, REF_RGBObj->RGB_Blue_Pin, RGB_LED_ON);
+					REF_RGBObj->RGB_Blue_State = RGB_LED_ON;
+				}
+				break;
+			}
+}
 /**********************************************************************************************************************
  *  END OF FILE: RGB_program.c
  *********************************************************************************************************************/
