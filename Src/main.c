@@ -16,12 +16,19 @@
  ******************************************************************************
  */
 #include"main.h"
+#include "MCAL/SYSTICK/SYSTICK_interface.h"
+#include "MCAL/SYSTICK/SYSTICK_private.h"
+#include "LIB/STD_TYPES.h"
+#include "LIB/Delay.h"
 
 // ----------------------------------------------------------------------------
 void IR_Handler(void){
 	if(IR_u32GetReceivedData() == IR_TV_REMOTE_RED_BUTTON)
 	{
 		RGB_voidLedToggle(&RGB_Lcfg, RGB_RED_LED);
+		Delay_ms(5000);
+		RGB_voidLedToggle(&RGB_Lcfg, RGB_RED_LED);
+
 	}
 	else if(IR_u32GetReceivedData() == IR_TV_REMOTE_GREEN_BUTTON){
 
@@ -60,10 +67,12 @@ void IR_Handler(void){
 int main(void)
 {
 	RGB_voidInit(&RGB_Lcfg);
+	LED_voidInit(&led_red1);
 	IR_voidInit(&IR_Config,IR_Handler);
     /* Loop forever */
 	while(1)
 	{
-
+		LED_voidToggle(&led_red1);
+		Delay_sec(10);
 	}
 }

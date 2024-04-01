@@ -14,7 +14,9 @@ Src/main.o: ../Src/main.c ../Inc/main.h ../Inc/HAL/LED/LED_config.h \
  ../Inc/MCAL/SYSTICK/../../LIB/STD_TYPES.h \
  ../Inc/MCAL/EXTI/EXTI_interface.h ../Inc/MCAL/EXTI/../../LIB/STD_TYPES.h \
  ../Inc/MCAL/EXTI/../../LIB/BIT_MATH.h ../Inc/HAL/RGB_LED/RGB_Lcfg.h \
- ../Inc/HAL/RGB_LED/RGB_interface.h ../Inc/MCAL/RCC/RCC_interface.h
+ ../Inc/HAL/RGB_LED/RGB_interface.h ../Inc/MCAL/RCC/RCC_interface.h \
+ ../Inc/MCAL/SYSTICK/SYSTICK_private.h ../Inc/LIB/STD_TYPES.h \
+ ../Inc/LIB/Delay.h ../Inc/LIB/STD_TYPES.h
 ../Inc/main.h:
 ../Inc/HAL/LED/LED_config.h:
 ../Inc/HAL/LED/LED_interface.h:
@@ -38,3 +40,7 @@ Src/main.o: ../Src/main.c ../Inc/main.h ../Inc/HAL/LED/LED_config.h \
 ../Inc/HAL/RGB_LED/RGB_Lcfg.h:
 ../Inc/HAL/RGB_LED/RGB_interface.h:
 ../Inc/MCAL/RCC/RCC_interface.h:
+../Inc/MCAL/SYSTICK/SYSTICK_private.h:
+../Inc/LIB/STD_TYPES.h:
+../Inc/LIB/Delay.h:
+../Inc/LIB/STD_TYPES.h:

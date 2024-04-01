@@ -16,7 +16,7 @@ void MSysTick_voidInit(void)
 {
 		/* Select The Processor Clock */
 #if (SYSTICK_CLOCK_SOURCE == SYSTICK_AHB_DIV_1)
-		SET_BIT(SysTick->CTRL,SysTick_CTRL_Pos);
+		SET_BIT(SysTick->CTRL,SysTick_CTRL_CLKSOURCE_Pos);
 #elif (SYSTICK_CLOCK_SOURCE == SYSTICK_AHB_DIV_8)
 		CLR_BIT(SysTick->CTRL,SysTick_CTRL_CLKSOURCE_Pos);
 #else

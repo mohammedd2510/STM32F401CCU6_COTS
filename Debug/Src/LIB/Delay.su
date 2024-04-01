@@ -1,0 +1,2 @@
+../Src/LIB/Delay.c:42:6:Delay_ms	16	static
+../Src/LIB/Delay.c:48:6:Delay_sec	16	static

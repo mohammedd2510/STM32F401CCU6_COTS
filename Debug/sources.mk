@@ -28,6 +28,7 @@ Src/HAL/IR_Receiver \
 Src/HAL/LED \
 Src/HAL/LEDMAT \
 Src/HAL/RGB_LED \
+Src/LIB \
 Src/MCAL/EXTI \
 Src/MCAL/GPIO \
 Src/MCAL/NVIC \

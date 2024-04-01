@@ -16,6 +16,7 @@ RM := rm -rf
 -include Src/MCAL/NVIC/subdir.mk
 -include Src/MCAL/GPIO/subdir.mk
 -include Src/MCAL/EXTI/subdir.mk
+-include Src/LIB/subdir.mk
 -include Src/HAL/RGB_LED/subdir.mk
 -include Src/HAL/LEDMAT/subdir.mk
 -include Src/HAL/LED/subdir.mk

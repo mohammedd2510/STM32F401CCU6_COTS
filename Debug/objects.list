@@ -9,6 +9,7 @@
 "./Src/HAL/LEDMAT/LEDMAT_program.o"
 "./Src/HAL/RGB_LED/RGB_Lcfg.o"
 "./Src/HAL/RGB_LED/RGB_program.o"
+"./Src/LIB/Delay.o"
 "./Src/MCAL/EXTI/EXTI_Lcfg.o"
 "./Src/MCAL/EXTI/EXTI_program.o"
 "./Src/MCAL/GPIO/GPIO_program.o"
