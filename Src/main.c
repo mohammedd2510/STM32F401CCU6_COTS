@@ -73,6 +73,11 @@ int main(void)
 	while(1)
 	{
 		LED_voidToggle(&led_red1);
-		Delay_sec(10);
+		Delay_us(5000000);
+		LED_voidToggle(&led_red1);
+		Delay_ms(5000);
+		LED_voidToggle(&led_red1);
+		Delay_sec(5);
+
 	}
 }
