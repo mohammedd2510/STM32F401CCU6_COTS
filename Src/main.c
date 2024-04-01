@@ -16,68 +16,46 @@
  ******************************************************************************
  */
 #include"main.h"
-#include "MCAL/SYSTICK/SYSTICK_interface.h"
-#include "MCAL/SYSTICK/SYSTICK_private.h"
-#include "LIB/STD_TYPES.h"
-#include "LIB/Delay.h"
 
 // ----------------------------------------------------------------------------
 void IR_Handler(void){
-	if(IR_u32GetReceivedData() == IR_TV_REMOTE_RED_BUTTON)
-	{
-		RGB_voidLedToggle(&RGB_Lcfg, RGB_RED_LED);
-		Delay_ms(5000);
-		RGB_voidLedToggle(&RGB_Lcfg, RGB_RED_LED);
+	static u8 Local_u8RGP_PowerFlag = 0;
+		if(IR_u32GetReceivedData() == IR_TV_REMOTE_1)
+		{
+			RGB_voidLedToggle(&RGB_Lcfg, RGB_RED_LED);
+		}
+		else if(IR_u32GetReceivedData() == IR_TV_REMOTE_2){
 
-	}
-	else if(IR_u32GetReceivedData() == IR_TV_REMOTE_GREEN_BUTTON){
+			RGB_voidLedToggle(&RGB_Lcfg, RGB_GREEN_LED);
+		}
+		else if(IR_u32GetReceivedData() == IR_TV_REMOTE_3){
 
-		RGB_voidLedToggle(&RGB_Lcfg, RGB_GREEN_LED);
-	}
-	else if(IR_u32GetReceivedData() == IR_TV_REMOTE_BLUE_BUTTON){
+			RGB_voidLedToggle(&RGB_Lcfg, RGB_BLUE_LED);
+		}
 
-		RGB_voidLedToggle(&RGB_Lcfg, RGB_BLUE_LED);
-	}
-	/*
-	else if(IR_u32GetReceivedData() == IR_4_BUTTON){
-
-		RGB_voidSetColor(&RGB_Lcfg, RGB_WHITE);
-	}
-	else if(IR_u32GetReceivedData() == IR_5_BUTTON){
-
-		RGB_voidSetColor(&RGB_Lcfg, RGB_PURPLE);
-	}
-	else if(IR_u32GetReceivedData() == IR_6_BUTTON){
-
-		RGB_voidSetColor(&RGB_Lcfg, RGB_CYAN);
-	}
-	else if(IR_u32GetReceivedData() == IR_7_BUTTON){
-
-		RGB_voidSetColor(&RGB_Lcfg, RGB_BLACK);
-	}
-	else if(IR_u32GetReceivedData() == IR_8_BUTTON){
-
-	}
-	else if(IR_u32GetReceivedData() == IR_9_BUTTON){
-
-	}*/
-
+		else if(IR_u32GetReceivedData() == IR_TV_REMOTE_POWER)
+		{
+			if(Local_u8RGP_PowerFlag == 0)
+			{
+				RGB_voidSetColor(&RGB_Lcfg, RGB_WHITE_COLOR);
+				Local_u8RGP_PowerFlag = 1;
+			}
+			else if(Local_u8RGP_PowerFlag == 1)
+			{
+				RGB_voidSetColor(&RGB_Lcfg, RGB_BLACK_COLOR);
+				Local_u8RGP_PowerFlag = 0;
+			}
+		}
 }
 
 int main(void)
 {
 	RGB_voidInit(&RGB_Lcfg);
-	LED_voidInit(&led_red1);
 	IR_voidInit(&IR_Config,IR_Handler);
     /* Loop forever */
 	while(1)
 	{
-		LED_voidToggle(&led_red1);
-		Delay_us(5000000);
-		LED_voidToggle(&led_red1);
-		Delay_ms(5000);
-		LED_voidToggle(&led_red1);
-		Delay_sec(5);
+
 
 	}
 }

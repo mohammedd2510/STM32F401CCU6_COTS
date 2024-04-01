@@ -98,6 +98,9 @@ static void IR_EXTI_Handler()
 		{
 			IR_Status_Flag = IR_GETTING_DATA;
 		}
+		else if(IR_ElapsedTime >=IR_REPEAT_SIGNAL_RANGE_LOW  && IR_ElapsedTime <= IR_REPEAT_SIGNAL_RANGE_HIGH){
+			IR_callback();
+		}
 		MSystick_voidResetTimer();
 	}
 	else if (IR_Status_Flag == IR_GETTING_DATA)

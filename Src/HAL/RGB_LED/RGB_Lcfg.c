@@ -45,7 +45,7 @@ RGB_Config_t RGB_Lcfg =
 		.RGB_Green_Pin = GPIO_PIN1,
 		.RGB_Green_Port = GPIO_PORTB,
 		.RGB_Green_State = RGB_LED_OFF,
-		.RGB_Blue_Pin = GPIO_PIN2,
+		.RGB_Blue_Pin = GPIO_PIN3,
 		.RGB_Blue_Port = GPIO_PORTB,
 		.RGB_Blue_State = RGB_LED_OFF
 };
