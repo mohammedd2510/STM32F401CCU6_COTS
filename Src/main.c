@@ -19,39 +19,16 @@
 
 // ----------------------------------------------------------------------------
 void IR_Handler(void){
-	static u8 Local_u8RGP_PowerFlag = 0;
 		if(IR_u32GetReceivedData() == IR_TV_REMOTE_1)
 		{
-			RGB_voidLedToggle(&RGB_Lcfg, RGB_RED_LED);
-		}
-		else if(IR_u32GetReceivedData() == IR_TV_REMOTE_2){
-
-			RGB_voidLedToggle(&RGB_Lcfg, RGB_GREEN_LED);
-		}
-		else if(IR_u32GetReceivedData() == IR_TV_REMOTE_3){
-
-			RGB_voidLedToggle(&RGB_Lcfg, RGB_BLUE_LED);
-		}
-
-		else if(IR_u32GetReceivedData() == IR_TV_REMOTE_POWER)
-		{
-			if(Local_u8RGP_PowerFlag == 0)
-			{
-				RGB_voidSetColor(&RGB_Lcfg, RGB_WHITE_COLOR);
-				Local_u8RGP_PowerFlag = 1;
-			}
-			else if(Local_u8RGP_PowerFlag == 1)
-			{
-				RGB_voidSetColor(&RGB_Lcfg, RGB_BLACK_COLOR);
-				Local_u8RGP_PowerFlag = 0;
-			}
+			R2RDAC_voidSetSignal(&R2RDAC_Config, myaudio_raw,myaudio_raw_len);
 		}
 }
 
 int main(void)
 {
-	RGB_voidInit(&RGB_Lcfg);
 	IR_voidInit(&IR_Config,IR_Handler);
+	R2RDAC_voidInit(&R2RDAC_Config);
     /* Loop forever */
 	while(1)
 	{
