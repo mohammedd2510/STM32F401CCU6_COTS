@@ -11,11 +11,14 @@ RM := rm -rf
 -include sources.mk
 -include Startup/subdir.mk
 -include Src/MCAL/SYSTICK/subdir.mk
+-include Src/MCAL/SPI/subdir.mk
 -include Src/MCAL/SCB/subdir.mk
 -include Src/MCAL/RCC/subdir.mk
 -include Src/MCAL/NVIC/subdir.mk
 -include Src/MCAL/GPIO/subdir.mk
 -include Src/MCAL/EXTI/subdir.mk
+-include Src/MCAL/DMA/subdir.mk
+-include Src/HAL/SHIFT_REG_16BIT/subdir.mk
 -include Src/HAL/RGB_LED/subdir.mk
 -include Src/HAL/R2R_DAC/subdir.mk
 -include Src/HAL/LEDMAT/subdir.mk
@@ -75,7 +78,7 @@ main-build: STM32F401CCU6_COTS.elf secondary-outputs
 
 # Tool invocations
 STM32F401CCU6_COTS.elf STM32F401CCU6_COTS.map: $(OBJS) $(USER_OBJS) E:\The\ Courses\Embedded\ Systems\ARM\ Interfacing\STM32F401CCU6_COTS\STM32F401CCUX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "STM32F401CCU6_COTS.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"E:\The Courses\Embedded Systems\ARM Interfacing\STM32F401CCU6_COTS\STM32F401CCUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32F401CCU6_COTS.map" -Wl,--gc-sections -static -specs=rdimon.specs --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+	arm-none-eabi-gcc -o "STM32F401CCU6_COTS.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"E:\The Courses\Embedded Systems\ARM Interfacing\STM32F401CCU6_COTS\STM32F401CCUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32F401CCU6_COTS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

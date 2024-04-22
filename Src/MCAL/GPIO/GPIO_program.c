@@ -49,6 +49,49 @@ void GPIO_voidSetPinOutputMode(port_index_t Copy_PortIndex,
       break;
   }
 }
+void GPIO_voidSetPinAlternateFunction(port_index_t Copy_PortIndex, pin_index_t Copy_PinIndex, u8 Copy_u8AlternateFunction)
+{
+	switch (Copy_PortIndex) {
+	    case GPIO_PORTA:
+             if(Copy_PinIndex < 8)
+             {
+            	 MODIFY_REG(GPIOA_AFRL, GPIO_AF_CLEAR_MASK << Copy_PinIndex * GPIO_AF_PIN_BITS,
+					  Copy_u8AlternateFunction << Copy_PinIndex * GPIO_AF_PIN_BITS);
+             }
+             else
+             {
+            	 MODIFY_REG(GPIOA_AFRH, GPIO_AF_CLEAR_MASK << (Copy_PinIndex-8) * GPIO_AF_PIN_BITS,
+            			 Copy_u8AlternateFunction << (Copy_PinIndex-8) * GPIO_AF_PIN_BITS);
+             }
+	      break;
+	    case GPIO_PORTB:
+	    	if(Copy_PinIndex < 8)
+	    	{
+	    		MODIFY_REG(GPIOB_AFRL, GPIO_AF_CLEAR_MASK << Copy_PinIndex * GPIO_AF_PIN_BITS,
+	    				Copy_u8AlternateFunction << Copy_PinIndex * GPIO_AF_PIN_BITS);
+	    	}
+	    	else
+	    	{
+	    		MODIFY_REG(GPIOB_AFRH, GPIO_AF_CLEAR_MASK << (Copy_PinIndex-8) * GPIO_AF_PIN_BITS,
+	    				Copy_u8AlternateFunction << (Copy_PinIndex-8) * GPIO_AF_PIN_BITS);
+	    	}
+	      break;
+	    case GPIO_PORTC:
+	    	if(Copy_PinIndex < 8)
+	    	{
+	    		MODIFY_REG(GPIOC_AFRL, GPIO_AF_CLEAR_MASK << Copy_PinIndex * GPIO_AF_PIN_BITS,
+	    				Copy_u8AlternateFunction << Copy_PinIndex * GPIO_AF_PIN_BITS);
+	    	}
+	    	else
+	    	{
+	    		MODIFY_REG(GPIOC_AFRH, GPIO_AF_CLEAR_MASK << (Copy_PinIndex-8) * GPIO_AF_PIN_BITS,
+	    				Copy_u8AlternateFunction << (Copy_PinIndex-8) * GPIO_AF_PIN_BITS);
+	    	}
+	      break;
+	    default:
+	      break;
+	  }
+}
 void GPIO_voidSetPinOutputSpeed(port_index_t Copy_PortIndex,
                                 pin_index_t Copy_PinIndex,
                                 output_pin_speed_mode_t Copy_OutputPinSpeed) {

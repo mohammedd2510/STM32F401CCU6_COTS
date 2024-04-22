@@ -5,7 +5,7 @@
 
 Led_t led_red1 =
 {
-    .led_port = GPIO_PORTA,
+    .led_port = GPIO_PORTB,
     .led_pin  = GPIO_PIN1,
     .led_logic = GPIO_LOW
 };

@@ -29,11 +29,14 @@ Src/HAL/LED \
 Src/HAL/LEDMAT \
 Src/HAL/R2R_DAC \
 Src/HAL/RGB_LED \
+Src/HAL/SHIFT_REG_16BIT \
+Src/MCAL/DMA \
 Src/MCAL/EXTI \
 Src/MCAL/GPIO \
 Src/MCAL/NVIC \
 Src/MCAL/RCC \
 Src/MCAL/SCB \
+Src/MCAL/SPI \
 Src/MCAL/SYSTICK \
 Src \
 Startup \

@@ -1,5 +1,5 @@
 Src/HAL/LEDMAT/LEDMAT_LCFG.o: ../Src/HAL/LEDMAT/LEDMAT_LCFG.c \
- ../Inc/HAL/LEDMAT/LEDMAT_config.h ../Inc/HAL/LEDMAT/LEDMAT_interface.h \
+ ../Inc/HAL/LEDMAT/LEDMAT_Lcfg.h ../Inc/HAL/LEDMAT/LEDMAT_interface.h \
  ../Inc/LIB/STD_TYPES.h ../Inc/LIB/BIT_MATH.h \
  ../Inc/MCAL/GPIO/GPIO_interface.h ../Inc/MCAL/GPIO/../../LIB/BIT_MATH.h \
  ../Inc/MCAL/GPIO/../../LIB/STD_TYPES.h \
@@ -7,8 +7,12 @@ Src/HAL/LEDMAT/LEDMAT_LCFG.o: ../Src/HAL/LEDMAT/LEDMAT_LCFG.c \
  ../Inc/MCAL/SYSTICK/../../LIB/BIT_MATH.h \
  ../Inc/MCAL/SYSTICK/../../LIB/STD_TYPES.h \
  ../Inc/MCAL/RCC/RCC_interface.h ../Inc/MCAL/RCC/../../LIB/BIT_MATH.h \
- ../Inc/MCAL/RCC/../../LIB/STD_TYPES.h ../Inc/HAL/LEDMAT/LEDMAT_font.h
-../Inc/HAL/LEDMAT/LEDMAT_config.h:
+ ../Inc/MCAL/RCC/../../LIB/STD_TYPES.h ../Inc/HAL/LEDMAT/LEDMAT_font.h \
+ ../Inc/HAL/LEDMAT/LEDMAT_config.h \
+ ../Inc/HAL/SHIFT_REG_16BIT/SHIFTREG_Lcfg.h \
+ ../Inc/HAL/SHIFT_REG_16BIT/SHIFTREG_interface.h ../Inc/LIB/Delay.h \
+ ../Inc/LIB/STD_TYPES.h ../Inc/LIB/Delay_Cfg.h
+../Inc/HAL/LEDMAT/LEDMAT_Lcfg.h:
 ../Inc/HAL/LEDMAT/LEDMAT_interface.h:
 ../Inc/LIB/STD_TYPES.h:
 ../Inc/LIB/BIT_MATH.h:
@@ -22,3 +26,9 @@ Src/HAL/LEDMAT/LEDMAT_LCFG.o: ../Src/HAL/LEDMAT/LEDMAT_LCFG.c \
 ../Inc/MCAL/RCC/../../LIB/BIT_MATH.h:
 ../Inc/MCAL/RCC/../../LIB/STD_TYPES.h:
 ../Inc/HAL/LEDMAT/LEDMAT_font.h:
+../Inc/HAL/LEDMAT/LEDMAT_config.h:
+../Inc/HAL/SHIFT_REG_16BIT/SHIFTREG_Lcfg.h:
+../Inc/HAL/SHIFT_REG_16BIT/SHIFTREG_interface.h:
+../Inc/LIB/Delay.h:
+../Inc/LIB/STD_TYPES.h:
+../Inc/LIB/Delay_Cfg.h:

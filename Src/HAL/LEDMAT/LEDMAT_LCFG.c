@@ -12,7 +12,7 @@
 /**********************************************************************************************************************
  *  INCLUDES
  *********************************************************************************************************************/
-#include"HAL/LEDMAT/LEDMAT_config.h"
+#include"HAL/LEDMAT/LEDMAT_Lcfg.h"
 
 /**********************************************************************************************************************
 *  LOCAL MACROS CONSTANT\FUNCTION
@@ -25,6 +25,7 @@
 /**********************************************************************************************************************
  *  GLOBAL DATA
  *********************************************************************************************************************/
+#if (LEDMAT_SHIFTREG_MODE == SHIFTREG_MODE_DISABLED)
 ledmat_t ledmat_obj =
 {
 		.row[0].port = GPIO_PORTB,
@@ -76,7 +77,29 @@ ledmat_t ledmat_obj =
 		.col[7].pin = GPIO_PIN7,
 		.col[7].state = GPIO_LOW,
 };
+#else
+ledmat_t ledmat_obj =
+{
+		.row[0].ShiftRegPin = SHIFT_REG_Q0,
+		.row[1].ShiftRegPin = SHIFT_REG_Q1,
+		.row[2].ShiftRegPin = SHIFT_REG_Q2,
+		.row[3].ShiftRegPin = SHIFT_REG_Q3,
+		.row[4].ShiftRegPin = SHIFT_REG_Q4,
+		.row[5].ShiftRegPin = SHIFT_REG_Q5,
+		.row[6].ShiftRegPin = SHIFT_REG_Q6,
+		.row[7].ShiftRegPin = SHIFT_REG_Q7,
+		.col[0].ShiftRegPin = SHIFT_REG_Q8,
+		.col[1].ShiftRegPin = SHIFT_REG_Q9,
+		.col[2].ShiftRegPin = SHIFT_REG_Q10,
+		.col[3].ShiftRegPin = SHIFT_REG_Q11,
+		.col[4].ShiftRegPin = SHIFT_REG_Q12,
+		.col[5].ShiftRegPin = SHIFT_REG_Q13,
+		.col[6].ShiftRegPin = SHIFT_REG_Q14,
+		.col[7].ShiftRegPin = SHIFT_REG_Q15,
+		.ptrShiftRegCfg = &SHIFTREG_Config
+};
 
+#endif
 
 
 

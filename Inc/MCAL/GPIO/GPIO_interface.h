@@ -108,6 +108,8 @@ u8 GPIO_u8GetPinValue(port_index_t Copy_PortIndex, pin_index_t Copy_PinIndex);
 
 void GPIO_voidLockPin(port_index_t Copy_PortIndex, pin_index_t Copy_PinIndex);
 
+void GPIO_voidSetPinAlternateFunction(port_index_t Copy_PortIndex, pin_index_t Copy_PinIndex, u8 Copy_u8AlternateFunction);
+
 void GPIO_voidSetPortMode(port_index_t Copy_PortIndex, u32 Copy_u32GPIOPortMode);
 void GPIO_voidSetPortOutputMode(port_index_t Copy_PortIndex,
                                 u32 Copy_u32OutputPortMode);

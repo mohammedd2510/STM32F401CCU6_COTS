@@ -22,4 +22,16 @@ typedef void (*PtrFunction)(void);
 
 #define ZERO_INIT 0
 
+#define INTERRUPT_ENABLED 1
+#define INTERRUPT_DISABLED 0
+
+#define INTERRUPT_ACTIVE 1
+#define INTERRUPT_INACTIVE 0
+
+#define STD_OK 0
+#define STD_NOK 1
+#define STD_TIMEOUT 2
+
+typedef u8 Std_ReturnType;
+
 #endif

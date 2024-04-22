@@ -21,6 +21,8 @@
 #include "MCAL/RCC/RCC_interface.h"
 #include<string.h>
 #include"HAL/LEDMAT/LEDMAT_font.h"
+#include"HAL/LEDMAT/LEDMAT_config.h"
+#include "HAL/SHIFT_REG_16BIT/SHIFTREG_Lcfg.h"
 /**********************************************************************************************************************
  *  GLOBAL CONSTANT MACROS
  *********************************************************************************************************************/
@@ -37,16 +39,24 @@
  *********************************************************************************************************************/
 typedef struct
 {
+#if (LEDMAT_SHIFTREG_MODE == SHIFTREG_MODE_DISABLED)
 	port_index_t port;
 	pin_index_t  pin ;
 	gpio_logic_t state;
+#else
+    u8 ShiftRegPin;
+#endif
 }ledmat_column_t;
 
 typedef struct
 {
+#if (LEDMAT_SHIFTREG_MODE == SHIFTREG_MODE_DISABLED)
 	port_index_t port;
 	pin_index_t  pin ;
 	gpio_logic_t state;
+#else
+ u8 ShiftRegPin;
+#endif
 }ledmat_row_t;
 
 typedef struct
@@ -54,6 +64,9 @@ typedef struct
 	ledmat_row_t row[LED_MATRIX_ROW_NUM];
 	ledmat_column_t col[LED_MATRIX_COL_NUM];
 	u8	LedMatrix_Buffer[8];
+#if (LEDMAT_SHIFTREG_MODE == SHIFTREG_MODE_ENABLED)
+	SHIFTREG_t* ptrShiftRegCfg;
+#endif
 }ledmat_t;
 
 /**********************************************************************************************************************
@@ -61,19 +74,19 @@ typedef struct
  *********************************************************************************************************************/
 void HLEDMAT_voidInit(ledmat_t* ledmat_obj);
 
-void HLED_voidDisplayFrame(ledmat_t* ledmat_obj,u8* Copy_pu8FrameData);
+void HLEDMAT_voidDisplayFrame(ledmat_t* ledmat_obj,u8* Copy_pu8FrameData);
 
-void HLED_voidDisplayFrameWithDelay(ledmat_t* ledmat_obj,u8* Copy_pu8FrameData , u32 time_ms);
+void HLEDMAT_voidDisplayFrameWithDelay(ledmat_t* ledmat_obj,u8* Copy_pu8FrameData , u32 time_ms);
 
-void HLED_voidDisplayChar(ledmat_t* ledmat_obj,u8 Copy_u8Chr);
+void HLEDMAT_voidDisplayChar(ledmat_t* ledmat_obj,u8 Copy_u8Chr);
 
-void HLED_voidDisplayString(ledmat_t* ledmat_obj,u8* Copy_pu8Str,u32 time_ms);
+void HLEDMAT_voidDisplayString(ledmat_t* ledmat_obj,u8* Copy_pu8Str,u32 time_ms);
 
-void HLED_voidDisplayScrollingString(ledmat_t* ledmat_obj,u8* Copy_pu8Str,u32 time_ms);
+void HLEDMAT_voidDisplayScrollingString(ledmat_t* ledmat_obj,u8* Copy_pu8Str,u32 time_ms);
 
-void HLED_voidScrollFrameRight(ledmat_t* ledmat_obj,u32 time_ms);
+void HLEDMAT_voidScrollFrameRight(ledmat_t* ledmat_obj,u32 time_ms);
 
-void HLED_voidScrollFrameLeft(ledmat_t* ledmat_obj,u32 time_ms);
+void HLEDMAT_voidScrollFrameLeft(ledmat_t* ledmat_obj,u32 time_ms);
 /**********************************************************************************************************************
  *  GLOBAL FUNCTION PROTOTYPES
  *********************************************************************************************************************/

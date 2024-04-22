@@ -45,7 +45,7 @@ typedef struct{
  *  GLOBAL FUNCTION PROTOTYPES
  *********************************************************************************************************************/
 void R2RDAC_voidInit(R2RDAC_config_t* R2RDAC_Config);
-void R2RDAC_voidSetSignal(R2RDAC_config_t* R2RDAC_Config,u8* Copy_pu8Signal , u32 Copy_u32SignalLength);
+void R2RDAC_voidSetSignal(R2RDAC_config_t* R2RDAC_Config,const u8* Copy_pu8Signal , u32 Copy_u32SignalLength);
  
 #endif /* HAL_R2R_DAC_R2RDAC_INTERFACE_H_ */
 

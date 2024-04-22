@@ -46,17 +46,31 @@ static void voidDisableAllRows(ledmat_t* ledmat_obj)
 	u8 Local_RowsCounter = ZERO_INIT;
 	for(Local_RowsCounter = ZERO_INIT; Local_RowsCounter<LED_MATRIX_ROW_NUM; Local_RowsCounter++)
 	{
+#if LEDMAT_SHIFTREG_MODE == SHIFTREG_MODE_DISABLED
 		GPIO_voidSetPinValue(ledmat_obj->row[Local_RowsCounter].port, ledmat_obj->row[Local_RowsCounter].pin,GPIO_LOW);
 	}
+#else
+		CLR_BIT(ledmat_obj->ptrShiftRegCfg->ShiftReg_Data , ledmat_obj->row[Local_RowsCounter].ShiftRegPin);
+	}
+		SHIFTREG_voidLatchData(ledmat_obj->ptrShiftRegCfg);
+#endif
+
 }
 static void voidDisableAllColumns(ledmat_t* ledmat_obj)
 {
 	u8 Local_ColumnsCounter = ZERO_INIT;
 	for(Local_ColumnsCounter = ZERO_INIT; Local_ColumnsCounter<LED_MATRIX_COL_NUM; Local_ColumnsCounter++)
 	{
+#if LEDMAT_SHIFTREG_MODE == SHIFTREG_MODE_DISABLED
 		GPIO_voidSetPinValue(ledmat_obj->col[Local_ColumnsCounter].port, ledmat_obj->col[Local_ColumnsCounter].pin,GPIO_HIGH);
 	}
+#else
+		SET_BIT(ledmat_obj->ptrShiftRegCfg->ShiftReg_Data , ledmat_obj->col[Local_ColumnsCounter].ShiftRegPin);
+	}
+		SHIFTREG_voidLatchData(ledmat_obj->ptrShiftRegCfg);
+#endif
 }
+
 static void voidUpdateScreen_WithDelay(ledmat_t* ledmat_obj, u32 time_ms)
 {
 	u8 Local_RowsCounter = ZERO_INIT;
@@ -69,14 +83,35 @@ static void voidUpdateScreen_WithDelay(ledmat_t* ledmat_obj, u32 time_ms)
 		for(Local_RowsCounter = ZERO_INIT; Local_RowsCounter<LED_MATRIX_ROW_NUM; Local_RowsCounter++)
 		{
 			voidDisableAllColumns(ledmat_obj);
+			#if LEDMAT_SHIFTREG_MODE == SHIFTREG_MODE_DISABLED
 			GPIO_voidSetPinValue(ledmat_obj->row[Local_RowsCounter].port, ledmat_obj->row[Local_RowsCounter].pin,GPIO_HIGH);
+			#else
+			SET_BIT(ledmat_obj->ptrShiftRegCfg->ShiftReg_Data,ledmat_obj->row[Local_RowsCounter].ShiftRegPin);
+			SHIFTREG_voidLatchData(ledmat_obj->ptrShiftRegCfg);
+			#endif
 			for(Local_ColumnsCounter = ZERO_INIT; Local_ColumnsCounter<LED_MATRIX_COL_NUM; Local_ColumnsCounter++)
 			{
 				Local_col_pin_logic= !(ledmat_obj->LedMatrix_Buffer[Local_RowsCounter]>>Local_ColumnsCounter &0x01);
+				#if LEDMAT_SHIFTREG_MODE == SHIFTREG_MODE_DISABLED
 				GPIO_voidSetPinValue(ledmat_obj->col[Local_ColumnsCounter].port, ledmat_obj->col[Local_ColumnsCounter].pin,Local_col_pin_logic);
 				Frame_delay();
+				#else
+				if(Local_col_pin_logic == GPIO_HIGH){
+					SET_BIT(ledmat_obj->ptrShiftRegCfg->ShiftReg_Data,ledmat_obj->col[Local_ColumnsCounter].ShiftRegPin);
+				}
+				else if(Local_col_pin_logic == GPIO_LOW){
+					CLR_BIT(ledmat_obj->ptrShiftRegCfg->ShiftReg_Data,ledmat_obj->col[Local_ColumnsCounter].ShiftRegPin);
+				}
+
+				#endif
 			}
+			#if LEDMAT_SHIFTREG_MODE == SHIFTREG_MODE_DISABLED
 			GPIO_voidSetPinValue(ledmat_obj->row[Local_RowsCounter].port, ledmat_obj->row[Local_RowsCounter].pin,GPIO_LOW);
+			#else
+			SHIFTREG_voidLatchData(ledmat_obj->ptrShiftRegCfg);
+			CLR_BIT(ledmat_obj->ptrShiftRegCfg->ShiftReg_Data,ledmat_obj->row[Local_RowsCounter].ShiftRegPin);
+			SHIFTREG_voidLatchData(ledmat_obj->ptrShiftRegCfg);
+			#endif
 		}
 	}
 	LEDMAT_Delay_Flag = LEDMAT_DELAY_NOT_COMPLETED;
@@ -109,6 +144,7 @@ static void Frame_delay(){
  *********************************************************************************************************************/
 void HLEDMAT_voidInit(ledmat_t* ledmat_obj)
 {
+#if LEDMAT_SHIFTREG_MODE == SHIFTREG_MODE_DISABLED
 	u8 Local_RowsCounter = ZERO_INIT;
 	u8 Local_ColumnsCounter = ZERO_INIT;
 	for(Local_RowsCounter = ZERO_INIT; Local_RowsCounter<LED_MATRIX_ROW_NUM; Local_RowsCounter++)
@@ -151,10 +187,13 @@ void HLEDMAT_voidInit(ledmat_t* ledmat_obj)
 			  GPIO_voidSetPinOutputSpeed(ledmat_obj->col[Local_ColumnsCounter].port,ledmat_obj->col[Local_ColumnsCounter].pin,GPIO_OUTPUT_PIN_LOW_SPEED);
 			  GPIO_voidSetPinValue(ledmat_obj->col[Local_ColumnsCounter].port,ledmat_obj->col[Local_ColumnsCounter].pin,ledmat_obj->col[Local_ColumnsCounter].state);
 		}
+#else
+SHIFTREG_voidInit(ledmat_obj->ptrShiftRegCfg);
+#endif
 }
 
 
-void HLED_voidDisplayFrame(ledmat_t* ledmat_obj,u8* Copy_pu8FrameData)
+void HLEDMAT_voidDisplayFrame(ledmat_t* ledmat_obj,u8* Copy_pu8FrameData)
 {
 	u8 Local_RowsCounter = ZERO_INIT;
 	u8 Local_ColumnsCounter = ZERO_INIT;
@@ -164,18 +203,38 @@ void HLED_voidDisplayFrame(ledmat_t* ledmat_obj,u8* Copy_pu8FrameData)
 	for(Local_RowsCounter = ZERO_INIT; Local_RowsCounter<LED_MATRIX_ROW_NUM; Local_RowsCounter++)
 		{
 			voidDisableAllColumns(ledmat_obj);
+			#if LEDMAT_SHIFTREG_MODE == SHIFTREG_MODE_DISABLED
 			GPIO_voidSetPinValue(ledmat_obj->row[Local_RowsCounter].port, ledmat_obj->row[Local_RowsCounter].pin,GPIO_HIGH);
+			#else
+			SET_BIT(ledmat_obj->ptrShiftRegCfg->ShiftReg_Data,ledmat_obj->row[Local_RowsCounter].ShiftRegPin);
+			SHIFTREG_voidLatchData(ledmat_obj->ptrShiftRegCfg);
+			#endif
 			for(Local_ColumnsCounter = ZERO_INIT; Local_ColumnsCounter<LED_MATRIX_COL_NUM; Local_ColumnsCounter++)
 				{
 
 					Local_col_pin_logic= !(ledmat_obj->LedMatrix_Buffer[Local_RowsCounter]>>Local_ColumnsCounter &0x01);
+					#if LEDMAT_SHIFTREG_MODE == SHIFTREG_MODE_DISABLED
 					GPIO_voidSetPinValue(ledmat_obj->col[Local_ColumnsCounter].port, ledmat_obj->col[Local_ColumnsCounter].pin,Local_col_pin_logic);
 					Frame_delay();
+					#else
+					if(Local_col_pin_logic == GPIO_HIGH){
+						SET_BIT(ledmat_obj->ptrShiftRegCfg->ShiftReg_Data,ledmat_obj->col[Local_ColumnsCounter].ShiftRegPin);
+					}
+					else if(Local_col_pin_logic == GPIO_LOW){
+						CLR_BIT(ledmat_obj->ptrShiftRegCfg->ShiftReg_Data,ledmat_obj->col[Local_ColumnsCounter].ShiftRegPin);
+					}
+					#endif
 				}
+			#if LEDMAT_SHIFTREG_MODE == SHIFTREG_MODE_DISABLED
 			GPIO_voidSetPinValue(ledmat_obj->row[Local_RowsCounter].port, ledmat_obj->row[Local_RowsCounter].pin,GPIO_LOW);
+			#else
+			SHIFTREG_voidLatchData(ledmat_obj->ptrShiftRegCfg);
+			CLR_BIT(ledmat_obj->ptrShiftRegCfg->ShiftReg_Data,ledmat_obj->row[Local_RowsCounter].ShiftRegPin);
+			SHIFTREG_voidLatchData(ledmat_obj->ptrShiftRegCfg);
+			#endif
 		}
 }
-void HLED_voidDisplayFrameWithDelay(ledmat_t* ledmat_obj,u8* Copy_pu8FrameData , u32 time_ms)
+void HLEDMAT_voidDisplayFrameWithDelay(ledmat_t* ledmat_obj,u8* Copy_pu8FrameData , u32 time_ms)
 {
 	u8 Local_RowsCounter = ZERO_INIT;
 	u8 Local_ColumnsCounter = ZERO_INIT;
@@ -188,36 +247,56 @@ void HLED_voidDisplayFrameWithDelay(ledmat_t* ledmat_obj,u8* Copy_pu8FrameData ,
 		for(Local_RowsCounter = ZERO_INIT; Local_RowsCounter<LED_MATRIX_ROW_NUM; Local_RowsCounter++)
 		{
 			voidDisableAllColumns(ledmat_obj);
+			#if LEDMAT_SHIFTREG_MODE == SHIFTREG_MODE_DISABLED
 			GPIO_voidSetPinValue(ledmat_obj->row[Local_RowsCounter].port, ledmat_obj->row[Local_RowsCounter].pin,GPIO_HIGH);
+			#else
+			SET_BIT(ledmat_obj->ptrShiftRegCfg->ShiftReg_Data,ledmat_obj->row[Local_RowsCounter].ShiftRegPin);
+			SHIFTREG_voidLatchData(ledmat_obj->ptrShiftRegCfg);
+			#endif
 			for(Local_ColumnsCounter = ZERO_INIT; Local_ColumnsCounter<LED_MATRIX_COL_NUM; Local_ColumnsCounter++)
 			{
 				Local_col_pin_logic= !(ledmat_obj->LedMatrix_Buffer[Local_RowsCounter]>>Local_ColumnsCounter &0x01);
+				#if LEDMAT_SHIFTREG_MODE == SHIFTREG_MODE_DISABLED
 				GPIO_voidSetPinValue(ledmat_obj->col[Local_ColumnsCounter].port, ledmat_obj->col[Local_ColumnsCounter].pin,Local_col_pin_logic);
 				Frame_delay();
+				#else
+				if(Local_col_pin_logic == GPIO_HIGH){
+					SET_BIT(ledmat_obj->ptrShiftRegCfg->ShiftReg_Data,ledmat_obj->col[Local_ColumnsCounter].ShiftRegPin);
+				}
+				else if(Local_col_pin_logic == GPIO_LOW){
+					CLR_BIT(ledmat_obj->ptrShiftRegCfg->ShiftReg_Data,ledmat_obj->col[Local_ColumnsCounter].ShiftRegPin);
+				}
+				#endif
 			}
+			#if LEDMAT_SHIFTREG_MODE == SHIFTREG_MODE_DISABLED
 			GPIO_voidSetPinValue(ledmat_obj->row[Local_RowsCounter].port, ledmat_obj->row[Local_RowsCounter].pin,GPIO_LOW);
+			#else
+			SHIFTREG_voidLatchData(ledmat_obj->ptrShiftRegCfg);
+			CLR_BIT(ledmat_obj->ptrShiftRegCfg->ShiftReg_Data,ledmat_obj->row[Local_RowsCounter].ShiftRegPin);
+			SHIFTREG_voidLatchData(ledmat_obj->ptrShiftRegCfg);
+			#endif
 		}
 	}
 	LEDMAT_Delay_Flag = LEDMAT_DELAY_NOT_COMPLETED;
 }
-void HLED_voidDisplayChar(ledmat_t* ledmat_obj,u8 Copy_u8Chr)
+void HLEDMAT_voidDisplayChar(ledmat_t* ledmat_obj,u8 Copy_u8Chr)
 {
- HLED_voidDisplayFrame(ledmat_obj,&Chr_font[Copy_u8Chr-FONT_START]);
+ HLEDMAT_voidDisplayFrame(ledmat_obj,&Chr_font[Copy_u8Chr-FONT_START]);
 }
 
-void HLED_voidDisplayString(ledmat_t* ledmat_obj,u8* Copy_pu8Str,u32 time_ms)
+void HLEDMAT_voidDisplayString(ledmat_t* ledmat_obj,u8* Copy_pu8Str,u32 time_ms)
 {
 	while(*Copy_pu8Str){
 		MSysTick_void_ASYNC_Delay_ms(time_ms, LEDMAT_SysTick_CallBack_Handler);
 		while(LEDMAT_Delay_Flag == LEDMAT_DELAY_NOT_COMPLETED)
 		{
-		HLED_voidDisplayChar(ledmat_obj, *Copy_pu8Str);
+		HLEDMAT_voidDisplayChar(ledmat_obj, *Copy_pu8Str);
 		}
 		LEDMAT_Delay_Flag =LEDMAT_DELAY_NOT_COMPLETED;
 		Copy_pu8Str++;
 	}
 }
-void HLED_voidDisplayScrollingString(ledmat_t* ledmat_obj,u8* Copy_pu8Str,u32 Copy_u32TimeMs)
+void HLEDMAT_voidDisplayScrollingString(ledmat_t* ledmat_obj,u8* Copy_pu8Str,u32 Copy_u32TimeMs)
 {
 	u8 Local_u8ColumnCounter = ZERO_INIT;
 	u8 Local_u8RowCounter = ZERO_INIT;
@@ -241,13 +320,13 @@ void HLED_voidDisplayScrollingString(ledmat_t* ledmat_obj,u8* Copy_pu8Str,u32 Co
 		voidUpdateScreen_WithDelay(ledmat_obj,Copy_u32TimeMs);
 	}
 }
-void HLED_voidScrollFrameRight(ledmat_t* ledmat_obj,u32 time_ms)
+void HLEDMAT_voidScrollFrameRight(ledmat_t* ledmat_obj,u32 time_ms)
 {
 	voidScrollRight(ledmat_obj);
 	voidUpdateScreen_WithDelay(ledmat_obj, time_ms);
 }
 
-void HLED_voidScrollFrameLeft(ledmat_t* ledmat_obj,u32 time_ms)
+void HLEDMAT_voidScrollFrameLeft(ledmat_t* ledmat_obj,u32 time_ms)
 {
 	voidScrollLeft(ledmat_obj);
 	voidUpdateScreen_WithDelay(ledmat_obj, time_ms);

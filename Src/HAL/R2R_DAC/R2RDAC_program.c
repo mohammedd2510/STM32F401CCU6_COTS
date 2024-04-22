@@ -66,7 +66,7 @@ void R2RDAC_voidInit(R2RDAC_config_t* R2RDAC_Config)
 	}
 
 }
-void R2RDAC_voidSetSignal(R2RDAC_config_t* R2RDAC_Config,u8* Copy_pu8Signal , u32 Copy_u32SignalLength)
+void R2RDAC_voidSetSignal(R2RDAC_config_t* R2RDAC_Config,const u8* Copy_pu8Signal , u32 Copy_u32SignalLength)
 {
 	u32 Local_DAC_Counter = ZERO_INIT;
 	u8 	Local_DAC_BitCounter = ZERO_INIT;
