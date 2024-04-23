@@ -16,37 +16,22 @@
  ******************************************************************************
  */
 #include"main.h"
+#include "MCAL/SPI/SPI_Lcfg.h"
 
 
-#include "MCAL/DMA/DMA_Lcfg.h"
-#include <string.h>
-void DMA1_ISR(void);
 // ----------------------------------------------------------------------------
 u32 counter;
 
 int main(void)
 {
-	u32 srcArr[500]={0};
-	u32 destArr[500];
-	u32 srcArrDMA[500]={0};
-	u32 destArrDMA[500];
-	DMA1_Config.DMA_TC_Callback = DMA1_ISR;
-	MDMA_voidInit(&DMA1_Config);
 
-memset(destArr,1,500);
-memset(destArrDMA,1,500);
-    /* Loop forever */
-	MDMA_voidStart(&DMA1_Config, srcArrDMA, destArrDMA,500);
-	for(counter=0;counter<500;counter++)
-	{
-		*(destArr+counter) = *(srcArr+counter);
-	}
+	MSPI_voidInit(&SPI1_Config);
+
+
 	while(1)
 	{
-
+		MSPI_TransmitByte(&SPI1_Config,'M', 1000);
+		Delay_ms(1000);
 	}
-}
-void DMA1_ISR(void)
-{
-	asm("NOP");
+
 }

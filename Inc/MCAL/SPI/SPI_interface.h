@@ -17,7 +17,7 @@
 #include "LIB/BIT_MATH.h"
 #include "LIB/STD_TYPES.h"
 #include"LIB/Delay.h"
-
+#include "MCAL/DMA/DMA_interface.h"
 /**********************************************************************************************************************
  *  GLOBAL CONSTANT MACROS
  *********************************************************************************************************************/
@@ -106,7 +106,8 @@ typedef struct
 #if (SPI1_RX_INT_ENABLE || SPI2_RX_INT_ENABLE || SPI3_RX_INT_ENABLE )==(INTERRUPT_ENABLED)
 	pCallBackNotification SPI_RX_INT_Callback;
 #endif
-
+	DMA_Config_t SPI_TX_DMA_Config;
+	DMA_Config_t SPI_RX_DMA_Config;
 }SPI_Config_t;
 
 /**********************************************************************************************************************
@@ -130,6 +131,14 @@ void MSPI_voidSetRXCallback(SPI_Config_t* SPIConfig , const pCallBackNotificatio
 Std_ReturnType MSPI_Transmit(SPI_Config_t* SPIConfig , u8* Ptr_u8Data , u16 Copy_u16DataSize , u32 Copy_u32Timeout);
 Std_ReturnType MSPI_Receive(SPI_Config_t* SPIConfig , u8* Ptr_u8Data , u16 Copy_u16DataSize , u32 Copy_u32Timeout);
 Std_ReturnType MSPI_TransmitReceive(SPI_Config_t* SPIConfig , u8 *pTxData, u8 *pRxData , u16 Copy_u16DataSize , u32 Copy_u32Timeout);
+
+Std_ReturnType MSPI_TransmitByte(SPI_Config_t* SPIConfig , u8 Copy_u8Data , u32 Copy_u32Timeout);
+Std_ReturnType MSPI_ReceiveByte(SPI_Config_t* SPIConfig , u8* Ptr_u8Data , u32 Copy_u32Timeout);
+Std_ReturnType MSPI_TransmitReceiveByte(SPI_Config_t* SPIConfig ,u8 Copy_u8Data, u8* Ptr_u8Data , u32 Copy_u32Timeout);
+
+void MSPI_DMA_Transmit(SPI_Config_t* SPIConfig , u8* Ptr_u8Data , u16 Copy_u16DataSize);
+void MSPI_DMA_Receive(SPI_Config_t* SPIConfig , u8* Ptr_u8Data , u16 Copy_u16DataSize);
+void MSPI_DMA_TransmitReceive(SPI_Config_t* SPIConfig , u8 *pTxData, u8 *pRxData , u16 Copy_u16DataSize);
  
 #endif /* MCAL_SPI_SPI_INTERFACE_H_ */
 

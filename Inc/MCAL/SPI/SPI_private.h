@@ -50,6 +50,9 @@
 #define TXIE_BIT_POS	0x07U
 #define RXIE_BIT_POS	0x06U
 
+#define TXDMAEN_BIT_POS	0x01U
+#define RXDMAEN_BIT_POS	0x00U
+
 #define SPI_EN_BIT_POS	0x06U
 
 #define SPI_BSY_BIT_POS	0x07U
@@ -97,11 +100,7 @@ static void MSPI_GPIOInit(const SPI_Config_t* SPIConfig);
 static void MSPI_InterruptInit(const SPI_Config_t* SPIConfig);
 #endif
 
-static Std_ReturnType MSPI_TransmitByte(SPI_Config_t* SPIConfig , u8 Copy_u8Data , u32 Copy_u32Timeout);
 
-static Std_ReturnType MSPI_ReceiveByte(SPI_Config_t* SPIConfig , u8* Ptr_u8Data , u32 Copy_u32Timeout);
-
-static Std_ReturnType MSPI_TransmitReceiveByte(SPI_Config_t* SPIConfig ,u8 Copy_u8Data, u8* Ptr_u8Data , u32 Copy_u32Timeout);
 
 static void MSPIx_voidClockEnable(const SPI_Config_t* SPIConfig);
 
