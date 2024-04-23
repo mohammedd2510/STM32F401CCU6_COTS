@@ -70,8 +70,8 @@ static void MSPI_GPIOInit(const SPI_Config_t* SPIConfig)
 		{
 			case SPI1_INSTANCE:
 				RCC_voidEnablePeripheralClock(RCC_AHB,RCC_AHB_GPIOAEN);
-			//	GPIO_voidSetPinMode(GPIO_PORTA, GPIO_PIN4, GPIO_ALTERNATE_FUNCTION_PIN_MODE); // SPI1_NSS_PIN
-			//	GPIO_voidSetPinAlternateFunction(GPIO_PORTA,GPIO_PIN4,SPI1_NSS_AF);
+				GPIO_voidSetPinMode(GPIO_PORTA, GPIO_PIN4, GPIO_ALTERNATE_FUNCTION_PIN_MODE); // SPI1_NSS_PIN
+				GPIO_voidSetPinAlternateFunction(GPIO_PORTA,GPIO_PIN4,SPI1_NSS_AF);
 
 				GPIO_voidSetPinMode(GPIO_PORTA, GPIO_PIN5, GPIO_ALTERNATE_FUNCTION_PIN_MODE); // SPI1_SCK_PIN
 				GPIO_voidSetPinAlternateFunction(GPIO_PORTA,GPIO_PIN5,SPI1_SCK_AF);
@@ -186,6 +186,7 @@ void MSPI_voidInit(const SPI_Config_t* SPIConfig)
 #endif
 	SPIx[SPIConfig->SPI_Instance]->CR1 =SPIConfig->SPI_Mode | SPIConfig->SPI_CLKPolarity | SPIConfig->SPI_CLKPhase
 			| SPIConfig->SPI_FirstBit | SPIConfig->SPI_BaudRatePrescaler;
+	SET_BIT(SPIx[SPIConfig->SPI_Instance]->CR2,SSOE_BIT_POS);
 	SET_BIT(SPIx[SPIConfig->SPI_Instance]->CR1, SPI_EN_BIT_POS);
 }
 
@@ -242,18 +243,28 @@ Std_ReturnType MSPI_TransmitByte(SPI_Config_t* SPIConfig , u8 Copy_u8Data , u32 
 	Std_ReturnType Local_u8ErrorState = STD_OK;
     u8 Local_u8DummyReceieve = 0;
     MSysTick_void_ASYNC_Delay_ms(Copy_u32Timeout, SPI_Timeout_Handler);
-	SPIx[SPIConfig->SPI_Instance]->DR = Copy_u8Data;
-	while((GET_BIT(SPIx[SPIConfig->SPI_Instance]->SR,SPI_BSY_BIT_POS) == SPI_BUSY) && (SPI_Timeout_Flag != SPI_TIMEOUT));
-	if(SPI_Timeout_Flag == SPI_TIMEOUT)
-	{
-		Local_u8ErrorState = STD_TIMEOUT;
-		SPI_Timeout_Flag = SPI_NO_TIMEOUT;
-	}
-	else
-	{
-		MSysTick_voidDeInit();
-		Local_u8DummyReceieve = SPIx[SPIConfig->SPI_Instance]->DR;
-	}
+    while((GET_BIT(SPIx[SPIConfig->SPI_Instance]->SR,SPI_TXE_BIT_POS) != SPI_BUSY) && (SPI_Timeout_Flag != SPI_TIMEOUT));
+    if(SPI_Timeout_Flag == SPI_TIMEOUT)
+    {
+    	Local_u8ErrorState = STD_TIMEOUT;
+    	SPI_Timeout_Flag = SPI_NO_TIMEOUT;
+    }
+    else
+    {
+    	MSysTick_void_ASYNC_Delay_ms(Copy_u32Timeout, SPI_Timeout_Handler);
+		SPIx[SPIConfig->SPI_Instance]->DR = Copy_u8Data;
+		while((GET_BIT(SPIx[SPIConfig->SPI_Instance]->SR,SPI_BSY_BIT_POS) == SPI_BUSY) && (SPI_Timeout_Flag != SPI_TIMEOUT));
+		if(SPI_Timeout_Flag == SPI_TIMEOUT)
+		{
+			Local_u8ErrorState = STD_TIMEOUT;
+			SPI_Timeout_Flag = SPI_NO_TIMEOUT;
+		}
+		else
+		{
+			MSysTick_voidDeInit();
+			Local_u8DummyReceieve = SPIx[SPIConfig->SPI_Instance]->DR;
+		}
+    }
 	return Local_u8ErrorState;
 }
 Std_ReturnType MSPI_ReceiveByte(SPI_Config_t* SPIConfig , u8* Ptr_u8Data , u32 Copy_u32Timeout)

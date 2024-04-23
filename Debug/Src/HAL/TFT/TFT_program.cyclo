@@ -1,0 +1,7 @@
+../Src/HAL/TFT/TFT_program.c:37:13:TFT_GPIO_PinsInit	5
+../Src/HAL/TFT/TFT_program.c:56:13:TFT_ResetSequence	6
+../Src/HAL/TFT/TFT_program.c:69:13:TFT_voidSendCommand	1
+../Src/HAL/TFT/TFT_program.c:74:13:TFT_voidSendData	1
+../Src/HAL/TFT/TFT_program.c:82:6:TFT_voidInit	2
+../Src/HAL/TFT/TFT_program.c:96:6:TFT_voidSetWindow	1
+../Src/HAL/TFT/TFT_program.c:113:6:TFT_voidDisplayImage	1

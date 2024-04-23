@@ -13,6 +13,8 @@
 "./Src/HAL/RGB_LED/RGB_program.o"
 "./Src/HAL/SHIFT_REG_16BIT/SHIFTREG_Lcfg.o"
 "./Src/HAL/SHIFT_REG_16BIT/SHIFTREG_program.o"
+"./Src/HAL/TFT/TFT_Lcfg.o"
+"./Src/HAL/TFT/TFT_program.o"
 "./Src/MCAL/DMA/DMA_Lcfg.o"
 "./Src/MCAL/DMA/DMA_program.o"
 "./Src/MCAL/EXTI/EXTI_Lcfg.o"

@@ -33,42 +33,14 @@ static pCallBackNotification DMA2_TCx_Callback[8] ={ NULL};
 /**********************************************************************************************************************
  *  LOCAL FUNCTION PROTOTYPES
  *********************************************************************************************************************/
+static void DMA_ClearTCInterruptFlag(DMA_Config_t* DMA_Config);
 static void DMA_Interrupt_Init(DMA_Config_t* DMA_Config);
 /**********************************************************************************************************************
  *  LOCAL FUNCTIONS
  *********************************************************************************************************************
 *********************************************************************************************************************/
-
-static void DMA_Interrupt_Init(DMA_Config_t* DMA_Config)
+static void DMA_ClearTCInterruptFlag(DMA_Config_t* DMA_Config)
 {
-	if(DMA_Config->Instance ==  DMA1)
-	{
-		if(DMA_Config->Stream <=6)
-		{
-			MNVIC_voidEnableIRQ(DMA_Config->Stream + 11);
-		}
-		else if (DMA_Config->Stream == 7 )
-		{
-			MNVIC_voidEnableIRQ(DMA1_Stream7_IRQn);
-		}
-		DMA1_TCx_Callback[DMA_Config->Stream] = DMA_Config->DMA_TC_Callback;
-	}
-	else if (DMA_Config->Instance == DMA2)
-	{
-		if(DMA_Config->Stream <=4)
-		{
-			MNVIC_voidEnableIRQ(DMA_Config->Stream + 56);
-		}
-		else if ((DMA_Config->Stream > 4) && (DMA_Config->Stream <= 7 ))
-		{
-			MNVIC_voidEnableIRQ(DMA_Config->Stream + 68);
-		}
-		DMA2_TCx_Callback[DMA_Config->Stream] = DMA_Config->DMA_TC_Callback;
-	}
-	else
-	{
-		/* Nothing */
-	}
 	if(DMA_Config->Stream == DMA_STREAM_0)
 	{
 		SET_BIT(DMA_Config->Instance->LIFCR ,DMA_CTCIF0_BIT_POS);
@@ -101,6 +73,37 @@ static void DMA_Interrupt_Init(DMA_Config_t* DMA_Config)
 	{
 		SET_BIT(DMA_Config->Instance->HIFCR ,DMA_CTCIF7_BIT_POS);
 	}
+}
+static void DMA_Interrupt_Init(DMA_Config_t* DMA_Config)
+{
+	if(DMA_Config->Instance ==  DMA1)
+	{
+		if(DMA_Config->Stream <=6)
+		{
+			MNVIC_voidEnableIRQ(DMA_Config->Stream + 11);
+		}
+		else if (DMA_Config->Stream == 7 )
+		{
+			MNVIC_voidEnableIRQ(DMA1_Stream7_IRQn);
+		}
+		DMA1_TCx_Callback[DMA_Config->Stream] = DMA_Config->DMA_TC_Callback;
+	}
+	else if (DMA_Config->Instance == DMA2)
+	{
+		if(DMA_Config->Stream <=4)
+		{
+			MNVIC_voidEnableIRQ(DMA_Config->Stream + 56);
+		}
+		else if ((DMA_Config->Stream > 4) && (DMA_Config->Stream <= 7 ))
+		{
+			MNVIC_voidEnableIRQ(DMA_Config->Stream + 68);
+		}
+		DMA2_TCx_Callback[DMA_Config->Stream] = DMA_Config->DMA_TC_Callback;
+	}
+	else
+	{
+		/* Nothing */
+	}
 	SET_BIT(DMA_Config->Instance->DMA_Sx[DMA_Config->Stream].CR,DMA_TCIE_BIT_POS);
 }
 /**********************************************************************************************************************
@@ -124,6 +127,8 @@ void MDMA_voidInit(DMA_Config_t* DMA_Config)
 	}
 	/* Clear DMA stream pervious configuration */
 	DMA_Config->Instance->DMA_Sx[DMA_Config->Stream].CR =0;
+	/* Clear DMA TC interrupt Flag */
+	DMA_ClearTCInterruptFlag(DMA_Config);
 	/* Configure DMA Stream */
 	DMA_Config->Instance->DMA_Sx[DMA_Config->Stream].CR =
 			((DMA_Config->Channel) |

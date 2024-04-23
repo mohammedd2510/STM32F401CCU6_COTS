@@ -16,8 +16,8 @@
  ******************************************************************************
  */
 #include"main.h"
-#include "MCAL/SPI/SPI_Lcfg.h"
-
+#include "HAL/TFT/TFT_Lcfg.h"
+#include "my_pic.h"
 
 // ----------------------------------------------------------------------------
 u32 counter;
@@ -25,13 +25,17 @@ u32 counter;
 int main(void)
 {
 
-	MSPI_voidInit(&SPI1_Config);
+	TFT_voidInit(&TFT_Config);
 
 
 	while(1)
 	{
-		MSPI_TransmitByte(&SPI1_Config,'M', 1000);
-		Delay_ms(1000);
+
+		TFT_voidDisplayImage(&TFT_Config,my_pic);
+		Delay_sec(1);
+		TFT_voidDisplayImage(&TFT_Config, pic2);
+		Delay_sec(1);
+
 	}
 
 }
