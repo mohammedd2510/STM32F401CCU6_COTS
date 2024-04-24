@@ -5,14 +5,17 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../Src/HAL/TFT/TFT_Font.c \
 ../Src/HAL/TFT/TFT_Lcfg.c \
 ../Src/HAL/TFT/TFT_program.c 
 
 OBJS += \
+./Src/HAL/TFT/TFT_Font.o \
 ./Src/HAL/TFT/TFT_Lcfg.o \
 ./Src/HAL/TFT/TFT_program.o 
 
 C_DEPS += \
+./Src/HAL/TFT/TFT_Font.d \
 ./Src/HAL/TFT/TFT_Lcfg.d \
 ./Src/HAL/TFT/TFT_program.d 
 
@@ -24,7 +27,7 @@ Src/HAL/TFT/%.o Src/HAL/TFT/%.su Src/HAL/TFT/%.cyclo: ../Src/HAL/TFT/%.c Src/HAL
 clean: clean-Src-2f-HAL-2f-TFT
 
 clean-Src-2f-HAL-2f-TFT:
-	-$(RM) ./Src/HAL/TFT/TFT_Lcfg.cyclo ./Src/HAL/TFT/TFT_Lcfg.d ./Src/HAL/TFT/TFT_Lcfg.o ./Src/HAL/TFT/TFT_Lcfg.su ./Src/HAL/TFT/TFT_program.cyclo ./Src/HAL/TFT/TFT_program.d ./Src/HAL/TFT/TFT_program.o ./Src/HAL/TFT/TFT_program.su
+	-$(RM) ./Src/HAL/TFT/TFT_Font.cyclo ./Src/HAL/TFT/TFT_Font.d ./Src/HAL/TFT/TFT_Font.o ./Src/HAL/TFT/TFT_Font.su ./Src/HAL/TFT/TFT_Lcfg.cyclo ./Src/HAL/TFT/TFT_Lcfg.d ./Src/HAL/TFT/TFT_Lcfg.o ./Src/HAL/TFT/TFT_Lcfg.su ./Src/HAL/TFT/TFT_program.cyclo ./Src/HAL/TFT/TFT_program.d ./Src/HAL/TFT/TFT_program.o ./Src/HAL/TFT/TFT_program.su
 
 .PHONY: clean-Src-2f-HAL-2f-TFT
 

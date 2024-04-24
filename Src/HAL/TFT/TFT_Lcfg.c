@@ -44,7 +44,8 @@ TFT_t TFT_Config = {
 		.TFT_DC_Port = GPIO_PORTA,
 		.TFT_DC_Pin = GPIO_PIN2,
 		.TFT_RESET_Port = GPIO_PORTA,
-		.TFT_RESET_Pin = GPIO_PIN3
+		.TFT_RESET_Pin = GPIO_PIN3,
+		.TFT_InitColor = TFT_BLACK
 };
 
 /**********************************************************************************************************************

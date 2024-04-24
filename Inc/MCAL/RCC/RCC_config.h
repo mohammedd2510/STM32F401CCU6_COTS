@@ -6,7 +6,7 @@
     RCC_CLK_HSE
     RCC_CLK_PLL
 */
-#define RCC_CLOCK_SOURCE RCC_CLK_HSI
+#define RCC_CLOCK_SOURCE RCC_CLK_HSE
 
 /*Options:
     RCC_CLK_HSI
@@ -25,7 +25,7 @@
  RCC_AHB_DIV_256   
  RCC_AHB_DIV_512    
 */
-#define RCC_AHB_PRESCALER RCC_AHB_DIV_2
+#define RCC_AHB_PRESCALER RCC_AHB_DIV_1
 
 /*Options:
  RCC_APB1_DIV_1     

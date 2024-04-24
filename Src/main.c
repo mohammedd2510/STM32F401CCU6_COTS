@@ -31,11 +31,14 @@ int main(void)
 	while(1)
 	{
 
-		TFT_voidDisplayImage(&TFT_Config,my_pic);
-		Delay_sec(1);
-		TFT_voidDisplayImage(&TFT_Config, pic2);
-		Delay_sec(1);
-
+		TFT_WriteStringPosWithBgColor(&TFT_Config,0,0,"HELLO IMT",TFT_BLUE,TFT_WHITE);
+		Delay_sec(5);
+		TFT_WriteStringPosWithBgColor(&TFT_Config,1,0,"TFT Driver",TFT_RED,TFT_WHITE);
+		Delay_sec(5);
+		TFT_WriteStringPosWithBgColor(&TFT_Config,4,0,"Completed",TFT_GREEN,TFT_WHITE);
+		Delay_sec(5);
+		TFT_ClearScreen(&TFT_Config);
+		//TFT_WriteCharPosWithBgColor(&TFT_Config, 0,0,'M', BLUE, BLACK);
 	}
 
 }

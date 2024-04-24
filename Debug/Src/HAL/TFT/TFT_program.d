@@ -7,7 +7,8 @@ Src/HAL/TFT/TFT_program.o: ../Src/HAL/TFT/TFT_program.c \
  ../Inc/MCAL/RCC/../../LIB/STD_TYPES.h ../Inc/MCAL/NVIC/NVIC_interface.h \
  ../Inc/MCAL/DMA/DMA_cfg.h ../Inc/MCAL/GPIO/GPIO_interface.h \
  ../Inc/MCAL/GPIO/../../LIB/BIT_MATH.h \
- ../Inc/MCAL/GPIO/../../LIB/STD_TYPES.h ../Inc/HAL/TFT/TFT_private.h
+ ../Inc/MCAL/GPIO/../../LIB/STD_TYPES.h ../Inc/HAL/TFT/TFT_Font.h \
+ ../Inc/HAL/TFT/TFT_private.h
 ../Inc/HAL/TFT/TFT_interface.h:
 ../Inc/MCAL/SPI/SPI_interface.h:
 ../Inc/LIB/BIT_MATH.h:
@@ -25,4 +26,5 @@ Src/HAL/TFT/TFT_program.o: ../Src/HAL/TFT/TFT_program.c \
 ../Inc/MCAL/GPIO/GPIO_interface.h:
 ../Inc/MCAL/GPIO/../../LIB/BIT_MATH.h:
 ../Inc/MCAL/GPIO/../../LIB/STD_TYPES.h:
+../Inc/HAL/TFT/TFT_Font.h:
 ../Inc/HAL/TFT/TFT_private.h:
