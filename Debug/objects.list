@@ -27,6 +27,8 @@
 "./Src/MCAL/SPI/SPI_Lcfg.o"
 "./Src/MCAL/SPI/SPI_program.o"
 "./Src/MCAL/SYSTICK/SYSTICK_program.o"
+"./Src/MCAL/UART/UART_Lcfg.o"
+"./Src/MCAL/UART/UART_program.o"
 "./Src/main.o"
 "./Src/syscalls.o"
 "./Src/sysmem.o"

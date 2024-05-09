@@ -1,12 +1,16 @@
 #ifndef RCC_CONFIG_H
 #define RCC_CONFIG_H
 
+#define AHB_CLK  8000000
+#define APB1_CLK 8000000
+#define APB2_CLK 8000000
+
 /*Options:
     RCC_CLK_HSI
     RCC_CLK_HSE
     RCC_CLK_PLL
 */
-#define RCC_CLOCK_SOURCE RCC_CLK_HSE
+#define RCC_CLOCK_SOURCE RCC_CLK_HSI
 
 /*Options:
     RCC_CLK_HSI
@@ -25,7 +29,7 @@
  RCC_AHB_DIV_256   
  RCC_AHB_DIV_512    
 */
-#define RCC_AHB_PRESCALER RCC_AHB_DIV_1
+#define RCC_AHB_PRESCALER RCC_AHB_DIV_2
 
 /*Options:
  RCC_APB1_DIV_1     

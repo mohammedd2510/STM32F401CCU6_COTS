@@ -17,28 +17,36 @@
  */
 #include"main.h"
 #include "HAL/TFT/TFT_Lcfg.h"
-#include "my_pic.h"
+
+
+void uart_receive()
+{
+
+}
 
 // ----------------------------------------------------------------------------
 u32 counter;
-
+char m[100]={0};
 int main(void)
 {
 
 	TFT_voidInit(&TFT_Config);
-
+	UART1_Cfg.UART_RXNEIE = INTERRUPT_ENABLED;
+	UART1_Cfg.UART_RXNE_INT_Callback = uart_receive;
+	UART_voidInit(&UART1_Cfg);
+	UART_voidReceive(&UART1_Cfg, &m, 100, 5000);
 
 	while(1)
 	{
 
-		TFT_WriteStringPosWithBgColor(&TFT_Config,0,0,"HELLO IMT",TFT_BLUE,TFT_WHITE);
+		TFT_WriteStringPosWithBgColor(&TFT_Config,0,0,m,TFT_BLUE,TFT_WHITE);
 		Delay_sec(5);
 		TFT_WriteStringPosWithBgColor(&TFT_Config,1,0,"TFT Driver",TFT_RED,TFT_WHITE);
 		Delay_sec(5);
 		TFT_WriteStringPosWithBgColor(&TFT_Config,4,0,"Completed",TFT_GREEN,TFT_WHITE);
 		Delay_sec(5);
 		TFT_ClearScreen(&TFT_Config);
-		//TFT_WriteCharPosWithBgColor(&TFT_Config, 0,0,'M', BLUE, BLACK);
+
 	}
 
 }

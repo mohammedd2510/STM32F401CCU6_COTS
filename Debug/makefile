@@ -10,6 +10,7 @@ RM := rm -rf
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include Startup/subdir.mk
+-include Src/MCAL/UART/subdir.mk
 -include Src/MCAL/SYSTICK/subdir.mk
 -include Src/MCAL/SPI/subdir.mk
 -include Src/MCAL/SCB/subdir.mk
@@ -70,6 +71,9 @@ STM32F401CCU6_COTS.list \
 OBJCOPY_HEX += \
 STM32F401CCU6_COTS.hex \
 
+OBJCOPY_BIN += \
+STM32F401CCU6_COTS.bin \
+
 
 # All Target
 all: main-build
@@ -98,12 +102,17 @@ STM32F401CCU6_COTS.hex: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEP
 	@echo 'Finished building: $@'
 	@echo ' '
 
+STM32F401CCU6_COTS.bin: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "STM32F401CCU6_COTS.bin"
+	@echo 'Finished building: $@'
+	@echo ' '
+
 # Other Targets
 clean:
-	-$(RM) STM32F401CCU6_COTS.elf STM32F401CCU6_COTS.hex STM32F401CCU6_COTS.list STM32F401CCU6_COTS.map default.size.stdout
+	-$(RM) STM32F401CCU6_COTS.bin STM32F401CCU6_COTS.elf STM32F401CCU6_COTS.hex STM32F401CCU6_COTS.list STM32F401CCU6_COTS.map default.size.stdout
 	-@echo ' '
 
-secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_HEX)
+secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_HEX) $(OBJCOPY_BIN)
 
 fail-specified-linker-script-missing:
 	@echo 'Error: Cannot find the specified linker script. Check the linker settings in the build configuration.'
